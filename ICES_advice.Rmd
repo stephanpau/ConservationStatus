@@ -39,7 +39,7 @@ stocks <- WGEF$Stock
 # Download the latest stock advice files from the ices website published since 2018
 It's possible thanks to their straightforward url: .../year/year/stock.pdf !  
 
-*If you want to keep ALL files published since 2018, simply add the year [i] in the file name to keep (for instance by adding "_", i, in the paste argument.*
+*If you want to keep ALL files published since 2018, simply add the year [i] in the file name to keep (for instance by adding "_", i, in the paste argument. There is for sure a faster way to run this loop and to store only the latest file instead of overwriting. Since I needed to do it only once, I kept the easy version that worked.*
 
 ```{r}
 for(i in 2018:2022){
@@ -56,74 +56,78 @@ for(i in 2018:2022){
 ```
 
 # Extract info from all files
-The 'extract_table' function from the 'tabulizer' package extracts tables from pdf files. However, it's not perfect and there are many possible errors. The loop below has several 'if' statements to cover all possible scenarios of error (mainly: not detecting the columns). Still, the final dataset contains error and will need to be checked and corrected by hand...
+  
+The 'extract_table' function from the 'tabulizer' package extracts tables from pdf files. However, it's not perfect and there are many possible errors. The loop below has several 'if' statements to cover all possible scenarios of error (mainly: not detecting the columns). Still, the final dataset contains error and will need to be checked and corrected by hand...  
+
 ```{r}
 #initiate empty tibble to store results
 ICES_advice <- tibble()
 
-#loop over all stocks
 for(j in 1:length(stocks)){
-  
   #select the file
   stock <- stocks[j]
-  stock_file <- paste("ICES_advice\\", stock, "_", i, ".pdf", sep ="")
+  stock_file <- paste("ICES_advice\\", stock, ".pdf", sep ="")
   
-  #extract all tables from the pdf file
+  #extract all tables
   stock_list <- extract_tables(
     file   = stock_file, 
     method = "decide", 
     output = "data.frame")
-  
-  #extract the history of advice catch and management
-  #the file should contain the "ICES.advice statement" as it is, either as column name or in first row
-  if(is.null(dim(stock_list[grepl("ICES.advice" , stock_list, fixed = T)])) == F){
-    stock_advice <- stock_list[grepl("ICES.advice" , stock_list, fixed = T)][[1]] %>% #extract the first df where he finds ICES.advice as is
-    as.tibble() %>% mutate_all(as.character)
-  } else {
+ 
+  #extract the history of advice catch and management since 2018
+  if(is.null(dim(stock_list[grepl("ICES.advice" , stock_list, fixed = T)])) == F){ #if he finds the pattern as is
     
-    #if it didn't find the pattern, look for "ICES.advice" with any combination of special characters
-    stock_advice <- stock_list[grepl("ICES.advice" , stock_list)][[1]] %>%
-    as.tibble() %>% mutate_all(as.character)
+    stock_list_match <- stock_list[grepl("ICES.advice" , stock_list, fixed = T)] #match pattern 
+    
+    stock_advice <- ifelse(nrow(stock_list_match[[1]]) == 0, #check if got right one (more than 0 rows in any case, otherwise caught a title)
+           stock_list_match[[2]], stock_list_match[[1]])
+    
+    stock_advice <- stock_advice[[1]] %>% as_tibble %>% mutate_all(as.character) #extract the table
+    
+  } else if(is.null(dim(stock_list[grepl("ICES.advice" , stock_list)])) == F) {
+    stock_advice <- stock_list[grepl("ICES advice" , stock_list)][[1]] %>% #extract the first df where he finds ICES.advice as is
+    as_tibble() %>% mutate_all(as.character)
+  } else{
+    next #if didn't find the table jump to next iteration
   }
 
-  #extract the original colname to use later on in "if" statement : says if the extract_tables function read the table correctly
-  if(colnames(stock_advice[,1]) == "Year") { 
-      original_colname <- "Year" #if "year as column name"
-  } else if(pull(stock_advice[1,1]) == "Year") {
+  #extract the original colname to check later on if the extract_tables function read it correctly
+  if(colnames(stock_advice[,1]) == "Year") {
+      original_colname <- "Year"
+  } else if(is.na(pull(stock_advice[1,1]) == "Year") == F) {
     original_colname <- "Year" #in case column names were not detected but column still well separated
   } else {
-    original_colname <- colnames(stock_advice[,1]) #otherwise set current colname as original_colname
+    original_colname <- colnames(stock_advice[,1])
   }
   
-  #rename the first column to Col1 so independently from its original name you can now refer to it
+  #rename the first column to Col1 so independently from its orginal name you can now refer to it
   stock_advice <- stock_advice %>% rename(Col1 = colnames(stock_advice[,1]))
+  stock_advice <- stock_advice %>% dplyr::filter(str_detect(Col1, "^2")) %>% #select columns that starts with 2 for the years
+    tail(n=6)
   
-  #select columns that starts with 2 for the years
-  stock_advice <- stock_advice %>% filter(str_detect(Col1, "^2")) %>% tail(n=6)
-  
-  #need to differentiate if the extract_tables read all column or not
+  #need to diffrentiate if read all column or only two
   if(nrow(stock_advice) == 0){
-    stock_advice <- tibble() %>% mutate(Year = NA, Advice = NA, Stock = stock) #if didn't find
+    stock_advice <- tibble() %>% mutate(Year = NA, Advice = NA, Stock = stock) %>% #if didn't find
+      mutate_all(as.character)
     
-  } else if(original_colname == "Year" | stock_advice[1,1] == "Year"){ #if the table was read correctly
+  } else if(ncol(stock_advice) <= 2) {
+    #then extract info by spliiting strg contained in 1st column, the pattern
+    stock_advice <- str_split_fixed(stock_advice$Col1, pattern = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)", n = 2) %>% 
+      as_tibble() %>% #split the value in year and advice
+      rename(Year = V1, Advice = V2) %>% #rename the column
+      mutate(Stock = stock) %>% #add stock column
+      mutate_all(as.character) #all as character for joining afterwards
+    
+  } else if(original_colname == "Year" | stock_advice[1,1] == "Year"){
     #then extract info by spliiting strg contained in 1st column, the pattern
     stock_advice <- stock_advice %>% select(1:2) %>% #select first two columns
       rename(Year = colnames(stock_advice[,1]), Advice = colnames(stock_advice[,2])) %>% #rename first two columns
       mutate(Stock = stock) %>% #add stock column
       mutate_all(as.character) #all to character for joining afterwards
     
-  } else if(ncol(stock_advice) <= 2) { #if there are one or two columns, the table was not read correctly
-    
-    #then extract info by splitting strg contained in 1st column, the pattern means to split between digits and letters
-    stock_advice <- str_split_fixed(stock_advice$Col1, pattern = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)", n = 2) %>% 
-      as.tibble() %>% #split the value in year and advice
-      rename(Year = V1, Advice = V2) %>% #rename the column
-      mutate(Stock = stock) %>% #add stock column
-      mutate_all(as.character) #all as character for joining afterwards
-    
   } else{
     stock_advice <- str_split_fixed(stock_advice$Col1, pattern = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)", n = 2) %>% 
-      as.tibble() %>% #split the value in year and advice
+      as_tibble() %>% #split the value in year and advice
       rename(Year = V1, Advice = V2) %>% #rename the column
       mutate(Stock = stock) %>% #add stock column
       mutate_all(as.character) #all as character for joining afterwards
