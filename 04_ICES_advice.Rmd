@@ -59,7 +59,41 @@ for(i in 2018:2022){
   
 The 'extract_table' function from the 'tabulizer' package extracts tables from pdf files. However, it's not perfect and there are many possible errors. The loop below has several 'if' statements to cover all possible scenarios of error (mainly: not detecting the columns). Still, the final dataset contains error and will need to be checked and corrected by hand...  
 
-```{r}
+## Extract stock category
+```{r stock_category}
+#initialize empty tibble
+ICES_stock_cat <- tibble()
+
+##loop over species
+for(j in 1:length(stocks)){
+  #select the stock
+  stock <- stocks[j]
+  stock_file <- paste("ICES_advice\\", stock, ".pdf", sep ="")
+  
+  #extract all tables
+  stock_list <- extract_tables(
+    file   = stock_file, 
+    method = "decide", 
+    output = "data.frame")
+  
+
+  stock_list_match <- stock_list[grepl("ICES.stock.data.category" , stock_list, fixed = T)] #match pattern
+  
+  #turn to tibble and extract the colname
+   stock_category <- stock_list_match[[1]] %>% as_tibble() %>% 
+    colnames() %>% str_extract(pattern="[[:digit:]]") %>% as_tibble() %>% drop_na() %>% pull(value)
+
+
+  #bind with stock
+  stock_category <- cbind(stock, stock_category) %>% as_tibble()
+  
+  #bind with big df
+  ICES_stock_cat <- bind_rows(ICES_stock_cat, stock_category)
+}
+```
+
+## Extract status history
+```{r status_history}
 #initiate empty tibble to store results
 ICES_advice <- tibble()
 
