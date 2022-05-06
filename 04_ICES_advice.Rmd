@@ -192,17 +192,5 @@ ICES_advice <- left_join(ICES_advice, WGEF[c("Species", "Stock", "Eco Region")],
 #export it to csv in long format to manually check and if needed complete
 ICES_advice_history <- write.csv(ICES_advice, file ="data\\ICES_advice_history.csv")
 
-#pivot to wide format
-ICES_wide <- ICES_advice %>% filter(Year %in% "2018":"2023") %>% pivot_wider(names_from = Year, values_from = Advice) %>% relocate(Stock)
-
-#html
-#reactable package
-ICES_html <- reactable(ICES_wide,
-                        pagination = F,
-                        highlight = T,
-                        striped = T)
-
-save_reactable_test(ICES_html, "data/ICES_html_table.html")
-
 #also need to correct for the stocks whose history of advice was splitted on two pages --> the year values will stop earlier than 2020 for instance
 ```

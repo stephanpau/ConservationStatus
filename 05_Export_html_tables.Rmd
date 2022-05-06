@@ -20,6 +20,11 @@ Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
 
 #OSPAR Status
 Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F) #to have symbols
+
+#ICES
+ICES_stock_cat <- read.csv("data\\ICES_stock_category.csv", encoding = "UTF-8", check.names = F) %>% select(-1) %>%
+  rename(Stock = stock)#drop id col
+ICES_advice <- read.csv("data\\ICES_advice_history.csv", encoding = "UTF-8", check.names = F) %>% select(-1) #drop 1st id col
 ```
 
 # Elasmo historical table
@@ -102,3 +107,19 @@ OSPAR_html <- reactable(status_color,
 save_reactable_test(OSPAR_html, "html_output/OSPAR_html_table.html")
 ```
 
+# ICES advice
+```{r ICES}
+#bind stock_cats and stock_advice
+ICES_advice <- left_join(ICES_advice, ICES_stock_cat, by = "Stock")
+
+#pivot to wide format
+ICES_wide <- ICES_advice %>% filter(Year %in% "2018":"2023") %>% pivot_wider(names_from = Year, values_from = Advice) %>% relocate(Stock, stock_category)
+
+#reactable package
+ICES_html <- reactable(ICES_wide,
+                        pagination = F,
+                        highlight = T,
+                        striped = T)
+
+save_reactable_test(ICES_html, "html_output/ICES_html_table.html")
+```
