@@ -12,8 +12,8 @@ This data compilation was made to evaluate the ecological state of elasmobranchs
 5. **05_Export_html_tables**: Finally, this script styles and exports nice html tables of the results. These html tables are stored separately in the "html_output" folder.  
 
 ### Folders
-*data: stores all initial datasets needed for the analysis as well as produced csv files.
-*ICES_advice: stores the pdf files downloaded from the 4th script and needed to extract the advice information.  
+* data: stores all initial datasets needed for the analysis as w well as produced csv files.  
+* ICES_advice: stores the pdf files downloaded from the 4th script and needed to extract the advice information.  
 * html_output: stores all html tables and associated files.  
 
 ## How to reuse it
