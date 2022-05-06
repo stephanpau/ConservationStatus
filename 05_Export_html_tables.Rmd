@@ -1,0 +1,104 @@
+---
+title: "Export_html_tables"
+author: "Pauline"
+date: '2022-05-06'
+output: html_document
+---
+This file exports the tables formatted as html. This is an easy and visual way to present the data.
+```{r setup, include = F}
+library(tidyverse)
+library(reactablefmtr)
+```
+
+# Load data
+```{r data}
+#IUCN_status
+Elasmobranchs_IUCN_historical_status <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8",check.names = F)
+
+#Conventions
+Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
+
+#OSPAR Status
+Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F) #to have symbols
+```
+
+# Elasmo historical table
+```{r display_iucn}
+#need to convert all to character
+Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% mutate(across(everything(), as.character))
+
+Elasmobranchs_IUCN_historical_status[is.na(Elasmobranchs_IUCN_historical_status)] <- " " #replace NAs by blank for better visualisation
+colnames(Elasmobranchs_IUCN_historical_status)
+#reactable package
+Elasmo_IUCN_html <- reactable(Elasmobranchs_IUCN_historical_status,
+                  pagination = F, #all on one page
+                  showPageSizeOptions = T,
+                  onClick = "select", #select the row when you click
+                  highlight = T, #highlight the rows on hover
+                  striped = T, #strip rows
+        defaultColDef = colDef( #style last_status column according to IUCN colors
+    style = function(status) {
+      if(status == "CR"){
+        color <- "red"
+      }
+      else if(status == "EN") {
+        color <- "orange"
+      }
+      else if (status == "VU") {
+        color <- "gold"
+      }
+      else if (status == "NT") {
+        color <- "forestgreen"
+      }
+      else if (status == "LC") {
+       color <- "lightgreen" 
+      }
+      
+      else if(status == "DD") {
+        color <- "lightgrey"
+      }
+      else{
+        color <- "white"
+      }
+      list(background = color)
+    }
+  )
+)
+
+save_reactable_test(Elasmo_IUCN_html, "html_output/Elasmo_IUCN_historical_table.html")
+```
+
+# Convention tables
+```{r convention}
+appendices_html <- reactable(Appendices, 
+                             pagination = F, 
+                             highlight = T, 
+                             striped = T)
+save_reactable_test(appendices_html, "html_output/Appendices_html_table.html")
+```
+
+# OSPAR table
+```{r ospar}
+#create colors
+status_color <- Status_OSPAR %>% 
+  mutate(status_colors = dplyr::case_when(
+  Last_status == 'Poor' ~ 'tomato',
+  Last_status == 'Good' ~ 'forestgreen',
+  Last_status == '?' ~ 'dodgerblue'
+  ))
+
+
+#reactable package
+OSPAR_html <- reactable(status_color,
+                        pagination = F,
+                        highlight = T,
+                        striped = T,
+                        defaultSorted = 'Last_status',
+                        columns = list(
+                          Last_status = colDef(
+                            style = color_scales(status_color, color_ref = 'status_colors')),
+                            status_colors = colDef(show = FALSE)
+                          ))
+save_reactable_test(OSPAR_html, "html_output/OSPAR_html_table.html")
+```
+
