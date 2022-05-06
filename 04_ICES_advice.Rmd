@@ -80,16 +80,25 @@ for(j in 1:length(stocks)){
   stock_list_match <- stock_list[grepl("ICES.stock.data.category" , stock_list, fixed = T)] #match pattern
   
   #turn to tibble and extract the colname
+  if(length(stock_list_match) > 0){
    stock_category <- stock_list_match[[1]] %>% as_tibble() %>% 
-    colnames() %>% str_extract(pattern="[[:digit:]]") %>% as_tibble() %>% drop_na() %>% pull(value)
-
-
+    colnames() %>% str_extract(pattern="[[:digit:]]") %>% as_tibble() %>% drop_na() %>% pull(value) 
+  } else{
+    stock_category <- NA #in case it didn't find the pattern
+  }
+   
   #bind with stock
   stock_category <- cbind(stock, stock_category) %>% as_tibble()
   
   #bind with big df
   ICES_stock_cat <- bind_rows(ICES_stock_cat, stock_category)
 }
+
+#there are some where it extracted two values
+ICES_stock_cat <- ICES_stock_cat %>% group_by(stock) %>% summarise(stock_category = first(stock_category))
+  
+#export as csv
+write.csv(ICES_stock_cat, "data/ICES_stock_category.csv")
 ```
 
 ## Extract status history
