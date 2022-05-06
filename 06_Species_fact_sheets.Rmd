@@ -1,0 +1,53 @@
+---
+title: "06_Species_fact_sheets"
+author: "Pauline"
+date: '2022-05-06'
+output: html_document
+---
+# Purpose
+Based on everything we put together, create fact sheets for each of the species in word format.
+
+# Load data
+```{r setup, include = F}
+library(tidyverse)
+library(readxl)
+library(reactablefmtr)
+```
+
+# Load data
+```{r data}
+#IUCN_status
+Status_IUCN <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8",check.names = F)
+
+#Conventions
+Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
+
+#OSPAR Status
+Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F) #to have symbols
+
+#ICES
+ICES_advice <- read_xlsx("data\\ICES_advice_history_updated.xlsx") %>% rename(Species = 'Species')
+```
+
+## Extract species names
+```{r species_names}
+#elasmo_fr
+elasmo_FR <- read.csv("data\\elasmo_uicn_france.csv")
+
+#list of species names for looping later on
+species_names <- elasmo_FR$Species
+```
+
+# Produce a species' fact sheet and export in word format
+```{r export_species}
+for (i in 1:length(species_names)){
+  species <- species_names[1]
+  
+  #extract IUCN
+  Status_IUCN <- Status_IUCN %>% filter(Species %in% species)
+  
+  #export word doc
+  print(target = paste0(species, "fact-sheet.docx"))
+}
+
+```
