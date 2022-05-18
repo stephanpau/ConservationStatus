@@ -27,6 +27,7 @@ Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.nam
 
 #ICES
 ICES_advice <- read_xlsx("data\\ICES_advice_history_updated.xlsx") %>% rename(Species = 'Species')
+ICES_stock_cat <- read_xlsx("data/ICES_stock_categories.xlsx")
 ```
 
 ## Extract species names

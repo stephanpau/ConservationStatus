@@ -194,14 +194,16 @@ IUCN_trend <- IUCN_all %>% drop_na() %>%
   arrange(Species, Level, Year) %>% #arrange in ascending order, needed for status evolution in right order
   summarise(Status_evolution = paste(Status, collapse ="-"), 
             Years_apart = max(Year)-min(Year),
-            Last_evaluation = max(Year)) %>%
+            Last_evaluation = max(Year),
+            Before_last_evaluation = min(Year)) %>%
   mutate(Last_status = str_sub(Status_evolution, -2)) %>%
   mutate(Status_evolution = ifelse(nchar(Status_evolution) > 2, Status_evolution, NA), #if there was only one evaluation, set to NA
-         Years_apart = ifelse(Years_apart == 0, NA, Years_apart)) #if there was only one evalutation, set to NA
+         Years_apart = ifelse(Years_apart == 0, NA, Years_apart)) %>% #if there was only one evalutation, set to NA
+  mutate(Before_last_status = ifelse(is.na(Status_evolution), NA, str_sub(Status_evolution, 1, 2))) #add before_last-status if relevant
 
 #now join to IUCN_all
 IUCN_all <- left_join(IUCN_all, IUCN_trend, by = c("Species", "Level", "Region")) %>% 
-  relocate(c("Status_evolution", "Years_apart", "Last_status", "Last_evaluation"), .after = Level)
+  relocate(c("Status_evolution", "Years_apart", "Last_status", "Before_last_status", "Last_evaluation", "Before_last_evaluation"), .after = Level)
 ```
 
 ## Pivot to wider format (years as columns with status as values) and export df
