@@ -28,6 +28,7 @@ library(ggsankey)
 library(IUCNpalette)
 IUCN_palette <- iucn_palette()
 IUCN_palette[1] <- "lightgray"
+IUCN_palette[8] <- "white"
 names_IUCN <- names(iucn_palettes)[1:8]
 
 # Name your color vector
@@ -52,7 +53,7 @@ Status_IUCN <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encodi
 Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
 
 #OSPAR Status
-Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F) #to have symbols
+Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F) %>% rename(Species = 1)#to have symbols
 
 #ICES
 ICES_advice <- read_xlsx("data\\ICES_advice_history_updated.xlsx") %>% rename(Species = 'Species')
@@ -232,6 +233,17 @@ Status_OSPAR$Region[Status_OSPAR$Region == "II*"] <- "II"
 Status_OSPAR_summary <- Status_OSPAR %>% select(-Previous_status, -Year) %>% pivot_wider(names_from = "Region", values_from = "Last_status")
 
 write_xlsx(Status_OSPAR_summary, "data\\Status_OSPAR_summary.xlsx")
+
+heatmap.ospar <- ggplot(Status_OSPAR, aes(Region, Species)) +
+  geom_tile(aes(fill = Last_status), colour = "white", lwd = .75) +
+  scale_fill_manual(values = palette) + 
+  theme_grey() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x= element_text(size=12, angle = 45, vjust = 0.5),
+        axis.text.y = element_text(size=12),
+        legend.position = "right")
+
+ggsave("figs\\heatmap_ospar.png", width = 6, height  = 4)
 ```
 
 # Zoom sur les espèces évaluées "DD" par l'IUCN France en 2013
@@ -239,15 +251,32 @@ write_xlsx(Status_OSPAR_summary, "data\\Status_OSPAR_summary.xlsx")
 #filter DD france
 species_DD_FR <- Status_IUCN %>% filter(Region %in% "France" & Last_status %in% "DD")
 species_DD_FR <- species_DD_FR$Species
-IUCN_DD_FR <- Status_IUCN %>% filter(Species %in% species_DD_FR) %>% filter(Region != "France")
+IUCN_DD_FR <- Status_IUCN %>% filter(Species %in% species_DD_FR) %>% filter(Region != "France") %>% na_if("NA") %>% filter(is.na(Last_status) == F) %>% mutate_all(as.character)
+IUCN_DD_FR$Last_status <- factor(IUCN_DD_FR$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
 
 #create two way table
-IUCN_DD_FR <- table(IUCN_DD_FR$Region, IUCN_DD_FR$Last_status) %>% as.data.frame() %>% 
+IUCN_DD_FR_freq <- table(IUCN_DD_FR$Region, IUCN_DD_FR$Last_status) %>% as.data.frame() %>% 
   pivot_wider(names_from = Var2, values_from = Freq) %>% mutate(Total = select(., "DD":"CR") %>% rowSums(na.rm = TRUE)) %>% rename(Region = Var1)
 
-write_xlsx(IUCN_DD_FR, "data\\IUCN_DD_FR.xlsx")
+write_xlsx(IUCN_DD_FR_freq, "data\\IUCN_DD_FR.xlsx")
+
+#heatmap
+heatmap.DD_FR <- ggplot(IUCN_DD_FR, aes(Region, Species)) +
+  geom_tile(aes(fill = Last_status), colour = "white", lwd = .75) +
+  scale_fill_manual(values = IUCN_palette[1:8]) + 
+  theme_grey() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x= element_text(size=12, angle = 45, vjust = 0.5),
+        axis.text.y = element_text(size=12),
+        legend.position = "bottom")
+
+ggsave("figs\\heatmap_dd_fr.png", width = 8, height  = 12)
 ```
 
+
+```{r}
+
+```
 
 # Annexe
 ```{r tableaux_annexe, echo = FALSE}
