@@ -64,7 +64,7 @@ elasmo_FR <- read.csv("data/elasmo_uicn_france.csv")
 species_names <- elasmo_FR$Species
 
 # set your api key as an environmental variable so you do not upload
-Sys.setenv(IUCN_KEY = '959850446d454cc0ab561b66417b9bc0bf85df0c0da1ddb51dbf2cae1a5dfc96') #my personal token
+#Sys.setenv(IUCN_KEY = 'YOURKEY') #my personal token
 
 #and you can save that as a R variable 
 apikey <- Sys.getenv("IUCN_KEY")
