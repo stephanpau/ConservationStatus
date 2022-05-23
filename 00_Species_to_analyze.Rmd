@@ -29,6 +29,7 @@ elasmo_FR$Species[elasmo_FR$Species == "Rhinobatos cemiculus"] <- "Glaucostegus 
 elasmo_FR$Species[elasmo_FR$Species == "Squalus blainvillei"] <- "Squalus blainville"
 elasmo_FR$Species[elasmo_FR$Species == "Squalus uyato"] <- "Centrophorus uyato"
 elasmo_FR$Species[elasmo_FR$Species == "Torpedo nobiliana"] <- "Tetronarce nobiliana"
+elasmo_FR$Species[elasmo_FR$Species == "Pteromylaeus bovinus"] <- "Aetomylaeus bovinus"
 
 
 #export table with corrected names to reuse it in other scripts

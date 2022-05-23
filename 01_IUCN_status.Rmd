@@ -64,7 +64,7 @@ elasmo_FR <- read.csv("data/elasmo_uicn_france.csv")
 species_names <- elasmo_FR$Species
 
 # set your api key as an environmental variable so you do not upload
-#Sys.setenv(IUCN_KEY = 'YOURKEY') #my personal token
+Sys.setenv(IUCN_KEY = '959850446d454cc0ab561b66417b9bc0bf85df0c0da1ddb51dbf2cae1a5dfc96') #my personal token
 
 #and you can save that as a R variable 
 apikey <- Sys.getenv("IUCN_KEY")
@@ -204,7 +204,8 @@ IUCN_trend <- IUCN_all %>% drop_na() %>%
   mutate(Last_status = str_sub(Status_evolution, -2)) %>%
   mutate(Status_evolution = ifelse(nchar(Status_evolution) > 2, Status_evolution, NA), #if there was only one evaluation, set to NA
          Years_apart = ifelse(Years_apart == 0, NA, Years_apart)) %>% #if there was only one evalutation, set to NA
-  mutate(Before_last_status = ifelse(is.na(Status_evolution), NA, str_sub(Status_evolution, 1, 2))) #add before_last-status if relevant
+  mutate(Before_last_status = ifelse(is.na(Status_evolution), NA, str_sub(Status_evolution, 1, 2))) %>% #add before_last-status if relevant
+  mutate(Before_last_evaluation = ifelse(is.na(Before_last_status), NA, Before_last_evaluation))
 
 #now join to IUCN_all
 IUCN_all <- left_join(IUCN_all, IUCN_trend, by = c("Species", "Level", "Region")) %>% 
