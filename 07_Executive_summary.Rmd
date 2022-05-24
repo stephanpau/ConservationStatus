@@ -93,6 +93,10 @@ write_xlsx(summary_evolution, "data\\Summary_evolution.xlsx")
 
 ### Overview regional
 ```{r stackedbar_iucn, echo = FALSE}
+#do the same but use french status as column
+IUCN_freq <- table(Status_IUCN$Region, Status_IUCN$Last_status) %>% as.data.frame() %>% 
+  pivot_wider(names_from = Var2, values_from = Freq) %>% mutate(Total = select(., "NA":"RE") %>% rowSums(na.rm = TRUE)) %>% rename(Region = Var1)
+
 #group by region, group, status do a stacked bar by group ??
 IUCN_summary <- Status_IUCN %>% #get the family from the elasmo_iucn df
   dplyr::group_by(Last_status, Groupe, Region) %>% 
@@ -152,11 +156,11 @@ sharks_alluvial <- ggplot(IUCN_sankey_world_sharks,
   geom_alluvial(flow.alpha = .6) +
   geom_alluvial_text(size = 3, color = "black") +
   scale_fill_manual(values = IUCN_palette) +
-  theme_alluvial(base_size = 12) +
+  theme_alluvial(base_size = 10) +
   labs(x = NULL) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = .5),
-        plot.caption = element_text(size = 10, hjust = 0),
+        plot.caption = element_text(size = 8, hjust = 0),
         plot.caption.position = "plot",
         plot.subtitle = element_text(hjust = .5),
         plot.margin=unit(c(0.5,0.5,0.5,0.5), 'cm')) +
@@ -165,7 +169,7 @@ sharks_alluvial <- ggplot(IUCN_sankey_world_sharks,
   scale_x_discrete(expand = c(0,0)) +
   scale_y_continuous(breaks=seq(0, 60, 10), sec.axis = sec_axis(~., breaks = seq(0, 60, 10)))
 
-ggsave("figs\\IUCN_world_sharks_alluvial2.png", width = 6, height = 8)
+ggsave("figs\\IUCN_world_sharks_alluvial3.png", width = 8, height = 12, units = "cm")
 
 #Med sharks
 IUCN_sankey_med_sharks <- Status_IUCN %>% #get the family from the elasmo_iucn df
@@ -188,12 +192,14 @@ med_sharks_alluvial <- ggplot(IUCN_sankey_med_sharks, aes(x = x, next_x = next_x
   theme(legend.position = "none",
         plot.title = element_text(hjust = .5),
         plot.subtitle = element_text(hjust = .5),
-        axis.text.x=element_text(size=8)) +
+        axis.text.x=element_text(size=8),
+        plot.margin=unit(c(0.1,0.1,0.1,0.1), 'cm')) +
   labs(title = "Evolution des statuts méditerranéens IUCN", subtitle = "Requins", x = "", y = "Nb. d'espèces évaluées") +
   scale_x_discrete(expand = c(0,0)) +
-  scale_y_continuous(sec.axis = sec_axis(~.))
+  scale_y_continuous(breaks=seq(0, 35, 5), sec.axis = sec_axis(~., breaks=seq(0, 35, 5)))
 
-ggsave("figs\\IUCN_med_sharks_alluvial2.png", width = 6, height = 8)
+#save
+ggsave("figs\\IUCN_med_sharks_alluvial2.png", width = 8, height = 12, units = "cm")
 ```
 
 ### IUCN rays
@@ -249,32 +255,23 @@ IUCN_sankey_med_rays <- Status_IUCN %>% #get the family from the elasmo_iucn df
 IUCN_sankey_med_rays$node <- factor(IUCN_sankey_med_rays$node ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
 IUCN_sankey_med_rays$next_node <- factor(IUCN_sankey_med_rays$next_node ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
 
-#need to customize palette because of problem
-palette_medrays[5] <- IUCN_palette[1]
-palette_medrays[2] <- IUCN_palette[2]
-palette_medrays[4] <- IUCN_palette[4]
-palette_medrays[3] <- IUCN_palette[3]
-palette_medrays[5] <- IUCN_palette[7]
-palette_medrays <- rev(IUCN_palette[1:7])
-palette
-
 med_rays_alluvial <- ggplot(IUCN_sankey_med_rays, aes(x = x, next_x = next_x, node = node, next_node = next_node, label = node)) +
   geom_alluvial(flow.alpha = .6,  aes(fill = node)) +
-  scale_fill_manual(values = IUCN_palette) +
+  scale_fill_manual(values = c("NE" = "lightgray", "CR" = "#FF0000", "EN" = "#FFA500", "VU" = "#FFFF00", "NT" = "#ADFF2F", "DD" = "#808080", "LC" = "#008000"), breaks = c("NE", "DD","LC", "NT", "VU", "EN", "CR"), labels = c("NE", "DD","LC", "NT", "VU", "EN", "CR")) +
   geom_alluvial_text(size = 3, color = "black") +
   theme_alluvial(base_size = 8) +
   labs(x = NULL) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = .5),
         plot.subtitle = element_text(hjust = .5),
-        axis.text.x=element_text(size=8)) +
+        axis.text.x=element_text(size=8),
+        plot.margin=unit(c(0.1,0.1,0.1,0.1), 'cm')) +
   labs(title = "Evolution des statuts méditerranéens IUCN", subtitle = "Raies", x = "", y = "Nb. d'espèces évaluées") +
   scale_x_discrete(expand = c(0,0)) +
-  scale_y_continuous(sec.axis = sec_axis(~.))
+  scale_y_continuous(breaks=seq(0, 25, 5), sec.axis = sec_axis(~., breaks=seq(0, 25, 5)))
 
-ggsave("figs\\IUCN_med_rays_alluvial2.png", width = 6, height = 8)
-IUCN_colors
-rays_palette <- c("lightgray", "#008000", "#FFFF00", "#FFA500", "#FF0000", "#808080", "#ADFF2F")
+ggsave("figs\\IUCN_med_rays_alluvial4.png", width = 8, height = 12, units = "cm")
+
 #c("NE" = "lightgray", "CR" = "#808080", "EN" = "#008000", "VU" = "#ADFF2F", "NT" = "#FFFF00", "LC" = "#FFA500", "DD" = "#FF0000")
 ```
 
@@ -305,29 +302,81 @@ ggsave("figs\\heatmap_ospar.png", width = 6, height  = 4)
 
 # Zoom sur les espèces évaluées "DD" par l'IUCN France en 2013
 ```{r dd_fr_iucn}
-#filter DD france
-species_DD_FR <- Status_IUCN %>% filter(Region %in% "France" & Last_status %in% "DD")
-species_DD_FR <- species_DD_FR$Species
-IUCN_DD_FR <- Status_IUCN %>% filter(Species %in% species_DD_FR) %>% filter(Region != "France") %>% mutate_all(as.character)
-IUCN_DD_FR$Last_status <- factor(IUCN_DD_FR$Last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))
-
 #create two way table
-IUCN_DD_FR_freq <- table(IUCN_DD_FR$Region, IUCN_DD_FR$Last_status) %>% as.data.frame() %>% 
-  pivot_wider(names_from = Var2, values_from = Freq) %>% mutate(Total = select(., "NA":"RE") %>% rowSums(na.rm = TRUE)) %>% rename(Region = Var1)
+levels_iucn <- unique(elasmo_FR$Cat_liste.rouge.France) %>% as.vector()
 
-write_xlsx(IUCN_DD_FR_freq, "data\\IUCN_DD_FR.xlsx")
+#initialize empty tibble
+freq <- tibble()
+
+for(i in 1:length(levels_iucn)){
+  #select stqtus
+  status <- levels_iucn[i]
+  
+  #extract species list
+  species_FR <- elasmo_FR %>% filter(Cat_liste.rouge.France %in% status) %>% select(Species)
+  species_FR <- species_FR$Species
+  
+  #compute table frequency
+  IUCN_freq <- Status_IUCN %>% filter(Species %in% species_FR) %>% filter(Region != "France") %>% mutate_all(as.character) %>% 
+    mutate(Last_status = factor(Last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE")))
+
+  IUCN_freq <- table(IUCN_freq$Region, IUCN_freq$Last_status) %>% as.data.frame() %>% 
+  pivot_wider(names_from = Var2, values_from = Freq) %>% 
+  mutate(Total = select(., "NA":"RE") %>% rowSums(na.rm = TRUE)) %>% 
+  rename(Region = Var1) %>% mutate(Status_FR = status) %>%
+  mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea", "NE Atlantic"), "Régional", "National")) %>%
+  mutate(Level = ifelse(Region == "World", "Mondial", Level)) %>% 
+  mutate(Level = ifelse(Region == "Europe", "Continental", Level))
+    
+  #bind rows
+  freq <- bind_rows(freq, IUCN_freq)
+}
+
+#add level
+freq <- freq %>% mutate(Region = as.character(Region)) %>%
+  relocate(c(Status_FR, Level), .before = Region) %>%
+  arrange(factor(Status_FR, levels = c(c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))), factor(Level, levels = c("National", "Régional", "Continental", "Mondial")), Region)
+
+#rename variables to have them in French for the table
+freq$Region[freq$Region == "Baltic Sea"] <- "Mer baltique"
+freq$Region[freq$Region == "Mediterranean Sea"] <- "Mer méditerranée"
+freq$Region[freq$Region == "Croatia"] <- "Croatie"
+freq$Region[freq$Region == "Italy"] <- "Italie"
+freq$Region[freq$Region == "Ireland"] <- "Irlande"
+freq$Region[freq$Region == "World"] <- "Monde"
+freq$Region[freq$Region == "Sweden"] <- "Suède"
+freq$Region[freq$Region == "Norway"] <- "Norvège"
+freq$Region[freq$Region == "Albania"] <- "Albanie"
+freq$Region[freq$Region == "Germany"] <- "Allemagne"
+freq$Region[freq$Region == "NE Atlantic"] <- "Atlantique NE"
+
+#export created df
+write_xlsx(freq, "data\\IUCN_freq_by_FrenchStatus.xlsx")
+
+#group by region, group, status do a stacked bar by group ??
+IUCN_summary <- Status_IUCN %>% #get the family from the elasmo_iucn df
+  dplyr::group_by(Last_status, Groupe, Region) %>% 
+  dplyr::summarise(Nb.species = length(Species))
 
 #heatmap
-heatmap.DD_FR <- ggplot(IUCN_DD_FR, aes(Region, Species)) +
+heatmap_df <- Status_IUCN %>% filter(Region != "France") %>% left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France")]) %>% 
+  mutate_all(as.character) %>%
+  rename(Status_FR = Cat_liste.rouge.France) %>%
+  mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea", "NE Atlantic"), "Regional", Level)) %>% 
+  mutate(Region = as.character(Region))
+
+heatmap_status
+  
+ggplot(heatmap_df, aes(Region, Species)) +
   geom_tile(aes(fill = Last_status), colour = "white", lwd = .75) +
   scale_fill_manual(values = IUCN_palette[1:8]) + 
   theme_grey() +
   theme(axis.title.x = element_blank(),
-        axis.text.x= element_text(size=12, angle = 45, vjust = 0.5),
+        axis.text.x= element_text(size=12, angle = 90, vjust = 0.5),
         axis.text.y = element_text(size=12),
-        legend.position = "bottom")
+        legend.position = "bottom") + facet_grid(~Level, switch = "x", scales = "free_x", space = "free_x")
 
-ggsave("figs\\heatmap_dd_fr.png", width = 8, height  = 12)
+ggsave("figs\\heatmap_all.png", width = 8, height  = 12)
 ```
 
 

@@ -168,6 +168,10 @@ IUCN_zsl <- read_xlsx("data/ZSL_IUCN_completed.xlsx")  %>% filter(Species %in% s
 
 #convert the value to bind with french list and avoid duplicated rows
 IUCN_zsl[IUCN_zsl == "France (continental)"] <- "France"
+
+#There is a problem with the ifelse for the Med Sea, correct by hand
+IUCN_zsl[IUCN_zsl == "Mediterranean Sea"] <- "Mediterranean Sea"
+IUCN_zsl$Level[IUCN_zsl$Region == "Mediterranean Sea"] <- "Regional"
 ```
 
 ## IUCN France

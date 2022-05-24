@@ -11,6 +11,7 @@
 "Alopias vulpinus","Requin-renard commun","National","Brazil",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Alopias vulpinus","Requin-renard commun","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Alopias vulpinus","Requin-renard commun","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Alopias vulpinus","Requin-renard commun","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Alopias vulpinus","Requin-renard commun","National","Germany",NA,NA,"3",1998,NA,NA,NA,"3",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Alopias vulpinus","Requin-renard commun","National","Ireland",NA,NA,"NE",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NE",NA,NA,NA,NA,NA,NA,NA
 "Alopias vulpinus","Requin-renard commun","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -45,13 +46,12 @@
 "Bathytoshia centroura","Pastenague épineuse","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Bathytoshia centroura","Pastenague épineuse","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Bathytoshia centroura","Pastenague épineuse","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Bathytoshia centroura","Pastenague épineuse","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Bathytoshia centroura","Pastenague épineuse","Regional","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus brachyurus","Requin cuivré","Continental","Europe",NA,NA,"DD",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus brachyurus","Requin cuivré","International","World","NT-VU",17,"VU",2020,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2003,"NT"
 "Carcharhinus brachyurus","Requin cuivré","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus brachyurus","Requin cuivré","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharhinus brachyurus","Requin cuivré","National","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharhinus brachyurus","Requin cuivré","Regional","Mediterranean Sea","NT-VU",17,"VU",2020,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2003,"NT"
+"Carcharhinus brachyurus","Requin cuivré","Regional","Mediterranean Sea","DD-VU",13,"VU",2020,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2007,"DD"
 "Carcharhinus brevipinna","Requin-tisserand","International","World","NT-VU",15,"VU",2020,NA,NA,NA,NA,"LR/nt",NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2005,"NT"
 "Carcharhinus brevipinna","Requin-tisserand","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus brevipinna","Requin-tisserand","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -60,28 +60,24 @@
 "Carcharhinus limbatus","Requin bordé","International","World","NT-VU",15,"VU",2020,NA,NA,"VU",NA,"LR/nt",NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2005,"NT"
 "Carcharhinus limbatus","Requin bordé","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus limbatus","Requin bordé","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharhinus limbatus","Requin bordé","National","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharhinus limbatus","Requin bordé","Regional","Mediterranean Sea",NA,NA,"DD",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA
+"Carcharhinus limbatus","Requin bordé","Regional","Mediterranean Sea","DD-DD",9,"DD",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,2007,"DD"
 "Carcharhinus plumbeus","Requin gris","Continental","Europe",NA,NA,"EN",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus plumbeus","Requin gris","International","World","VU-EN",13,"EN",2020,NA,NA,"VU",NA,"LR/nt",NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,2007,"VU"
 "Carcharhinus plumbeus","Requin gris","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharhinus plumbeus","Requin gris","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharhinus plumbeus","Requin gris","National","Mediterranean Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharhinus plumbeus","Requin gris","Regional","Mediterranean Sea",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
+"Carcharhinus plumbeus","Requin gris","Regional","Mediterranean Sea","EN-EN",9,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,2007,"EN"
 "Carcharias taurus","Requin-taureau","Continental","Europe",NA,NA,"CR",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharias taurus","Requin-taureau","International","World","VU-CR",15,"CR",2020,NA,NA,"EN",NA,"VU",NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,2005,"VU"
 "Carcharias taurus","Requin-taureau","National","Croatia",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharias taurus","Requin-taureau","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharias taurus","Requin-taureau","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharias taurus","Requin-taureau","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharias taurus","Requin-taureau","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Carcharias taurus","Requin-taureau","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Carcharodon carcharias","Grand requin blanc","Continental","Europe",NA,NA,"CR",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharodon carcharias","Grand requin blanc","International","World","VU-VU",13,"VU",2018,"K","K","VU",NA,"VU",NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,2005,"VU"
 "Carcharodon carcharias","Grand requin blanc","National","Croatia",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharodon carcharias","Grand requin blanc","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Carcharodon carcharias","Grand requin blanc","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharodon carcharias","Grand requin blanc","National","Mediterranean Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Carcharodon carcharias","Grand requin blanc","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Carcharodon carcharias","Grand requin blanc","Regional","Mediterranean Sea","EN-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"EN"
 "Centrophorus granulosus","Requin-chagrin","Continental","Europe",NA,NA,"CR",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Centrophorus granulosus","Requin-chagrin","International","World",NA,NA,"EN",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA
 "Centrophorus granulosus","Requin-chagrin","National","France",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -106,9 +102,8 @@
 "Centroscymnus coelolepis","Pailona commun","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Centroscymnus coelolepis","Pailona commun","National","Ireland",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
 "Centroscymnus coelolepis","Pailona commun","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Centroscymnus coelolepis","Pailona commun","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Centroscymnus coelolepis","Pailona commun","National","NE Atlantic",NA,NA,"EN",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Centroscymnus coelolepis","Pailona commun","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Centroscymnus coelolepis","Pailona commun","Regional","Mediterranean Sea","LC-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"LC"
 "Centroselachus crepidater","Pailona à long nez","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Centroselachus crepidater","Pailona à long nez","International","World","LC-NT",16,"NT",2019,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,2003,"LC"
 "Centroselachus crepidater","Pailona à long nez","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -122,25 +117,25 @@
 "Cetorhinus maximus","Requin-pèlerin","National","Canada","EN-CR",7,"CR",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,2007,"EN"
 "Cetorhinus maximus","Requin-pèlerin","National","Croatia",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Cetorhinus maximus","Requin-pèlerin","National","France",NA,NA,"VU",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Cetorhinus maximus","Requin-pèlerin","National","France (continental)",NA,NA,"VU",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Cetorhinus maximus","Requin-pèlerin","National","Ireland",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
 "Cetorhinus maximus","Requin-pèlerin","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Cetorhinus maximus","Requin-pèlerin","National","Mediterranean Sea",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Cetorhinus maximus","Requin-pèlerin","National","Norway",NA,NA,"EN",2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Cetorhinus maximus","Requin-pèlerin","National","Sweden","EN-CR",5,"CR",2010,NA,NA,NA,NA,"VU",NA,NA,NA,"EN",NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2005,"EN"
 "Cetorhinus maximus","Requin-pèlerin","National","United Kingdom",NA,NA,"NE",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NE",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Cetorhinus maximus","Requin-pèlerin","Regional","Baltic Sea",NA,NA,"NA",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Cetorhinus maximus","Requin-pèlerin","Regional","Mediterranean Sea",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
+"Cetorhinus maximus","Requin-pèlerin","Regional","Mediterranean Sea","VU-EN",9,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,2007,"VU"
 "Cetorhinus maximus","Requin-pèlerin","Regional","NE Atlantic",NA,NA,"EN",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera monstrosa","Chimère commune","Continental","Europe",NA,NA,"NT",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera monstrosa","Chimère commune","International","World","NT-VU",12,"VU",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,2007,"NT"
 "Chimaera monstrosa","Chimère commune","National","Albania",NA,NA,"NT",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera monstrosa","Chimère commune","National","Baltic Sea","VU-NA",6,"NA",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,"NA",NA,NA,NA,NA,NA,NA,NA,NA,2007,"VU"
 "Chimaera monstrosa","Chimère commune","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Chimaera monstrosa","Chimère commune","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera monstrosa","Chimère commune","National","Ireland",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
 "Chimaera monstrosa","Chimère commune","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Chimaera monstrosa","Chimère commune","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera monstrosa","Chimère commune","National","Sweden","VU-EN",5,"EN",2010,NA,NA,NA,NA,"NE",NA,NA,NA,"VU",NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2005,"VU"
-"Chimaera monstrosa","Chimère commune","Regional","Mediterranean Sea",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
+"Chimaera monstrosa","Chimère commune","Regional","Mediterranean Sea","NT-NT",9,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,2007,"NT"
 "Chimaera monstrosa","Chimère commune","Regional","NE Atlantic",NA,NA,"NT",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera opalescens","Chimère opale","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Chimaera opalescens","Chimère opale","International","World",NA,NA,"LC",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA
@@ -162,6 +157,7 @@
 "Dasyatis pastinaca","Raie pastenague","International","World","DD-VU",17,"VU",2020,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2003,"DD"
 "Dasyatis pastinaca","Raie pastenague","National","Croatia",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dasyatis pastinaca","Raie pastenague","National","France",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Dasyatis pastinaca","Raie pastenague","National","France (continental)",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dasyatis pastinaca","Raie pastenague","National","Germany",NA,NA,"3",1998,NA,NA,NA,"3",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dasyatis pastinaca","Raie pastenague","National","Ireland",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
 "Dasyatis pastinaca","Raie pastenague","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -172,12 +168,14 @@
 "Deania calcea","Squale-savate","Continental","Europe",NA,NA,"EN",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA
 "Deania calcea","Squale-savate","International","World","LC-NT",16,"NT",2019,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,2003,"LC"
 "Deania calcea","Squale-savate","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Deania calcea","Squale-savate","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Deania calcea","Squale-savate","National","Ireland",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
 "Deania calcea","Squale-savate","Regional","NE Atlantic",NA,NA,"VU",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dipturus batis","Pocheteau gris","International","World",NA,NA,"CR",2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA
 "Dipturus batis","Pocheteau gris","National","Baltic Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dipturus batis","Pocheteau gris","National","Croatia",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dipturus batis","Pocheteau gris","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Dipturus batis","Pocheteau gris","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dipturus batis","Pocheteau gris","National","Ireland",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
 "Dipturus batis","Pocheteau gris","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Dipturus batis","Pocheteau gris","National","NE Atlantic",NA,NA,"CR",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -213,10 +211,9 @@
 "Etmopterus spinax","Sagre commun","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Etmopterus spinax","Sagre commun","National","Ireland",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
 "Etmopterus spinax","Sagre commun","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Etmopterus spinax","Sagre commun","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Etmopterus spinax","Sagre commun","National","Sweden","VU-VU",5,"VU",2010,NA,NA,NA,NA,"LC",NA,NA,NA,"VU",NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2005,"VU"
 "Etmopterus spinax","Sagre commun","Regional","Baltic Sea",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Etmopterus spinax","Sagre commun","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Etmopterus spinax","Sagre commun","Regional","Mediterranean Sea","LC-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"LC"
 "Etmopterus spinax","Sagre commun","Regional","NE Atlantic",NA,NA,"NT",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeocerdo cuvier","Requin tigre","Continental","Europe",NA,NA,"DD",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeocerdo cuvier","Requin tigre","International","World","NT-NT",13,"NT",2018,NA,NA,NA,NA,"LR/nt",NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,2005,"NT"
@@ -227,13 +224,13 @@
 "Galeorhinus galeus","Requin hâ","National","Canada",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeorhinus galeus","Requin hâ","National","Croatia",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeorhinus galeus","Requin hâ","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Galeorhinus galeus","Requin hâ","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeorhinus galeus","Requin hâ","National","Ireland",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
 "Galeorhinus galeus","Requin hâ","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Galeorhinus galeus","Requin hâ","National","Mediterranean Sea",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeorhinus galeus","Requin hâ","National","Norway","DD-DD",4,"DD",2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2006,"DD"
 "Galeorhinus galeus","Requin hâ","National","Sweden","VU-VU",5,"VU",2010,NA,NA,NA,NA,"NE",NA,NA,NA,"VU",NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2005,"VU"
 "Galeorhinus galeus","Requin hâ","Regional","Baltic Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Galeorhinus galeus","Requin hâ","Regional","Mediterranean Sea",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
+"Galeorhinus galeus","Requin hâ","Regional","Mediterranean Sea","VU-VU",9,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,2007,"VU"
 "Galeorhinus galeus","Requin hâ","Regional","NE Atlantic",NA,NA,"DD",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeus melastomus","Chien espagnol","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeus melastomus","Chien espagnol","International","World","LC-LC",17,"LC",2020,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,2003,"LC"
@@ -241,22 +238,19 @@
 "Galeus melastomus","Chien espagnol","National","France",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeus melastomus","Chien espagnol","National","Ireland",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
 "Galeus melastomus","Chien espagnol","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Galeus melastomus","Chien espagnol","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Galeus melastomus","Chien espagnol","Regional","Baltic Sea",NA,NA,"NA",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Galeus melastomus","Chien espagnol","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Galeus melastomus","Chien espagnol","Regional","Mediterranean Sea","LC-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"LC"
 "Galeus melastomus","Chien espagnol","Regional","NE Atlantic",NA,NA,"LC",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Ginglymostoma cirratum","Requin-dormeur","International","World",NA,NA,"VU",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA
 "Glaucostegus cemiculus","Raie-guitare fouisseuse","Continental","Europe",NA,NA,"EN",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Glaucostegus cemiculus","Raie-guitare fouisseuse","International","World",NA,NA,"CR",2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA
 "Glaucostegus cemiculus","Raie-guitare fouisseuse","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Glaucostegus cemiculus","Raie-guitare fouisseuse","National","Mediterranean Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Glaucostegus cemiculus","Raie-guitare fouisseuse","Regional","Mediterranean Sea",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
+"Glaucostegus cemiculus","Raie-guitare fouisseuse","Regional","Mediterranean Sea","EN-EN",9,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,2007,"EN"
 "Gymnura altavela","Raie-papillon épineuse","Continental","Europe",NA,NA,"CR",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA
 "Gymnura altavela","Raie-papillon épineuse","International","World","VU-EN",12,"EN",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,2007,"VU"
 "Gymnura altavela","Raie-papillon épineuse","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Gymnura altavela","Raie-papillon épineuse","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Gymnura altavela","Raie-papillon épineuse","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Gymnura altavela","Raie-papillon épineuse","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Gymnura altavela","Raie-papillon épineuse","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Harriotta raleighana","Chimère à nez rigide","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Harriotta raleighana","Chimère à nez rigide","International","World","LC-LC",9,"LC",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,2006,"LC"
 "Harriotta raleighana","Chimère à nez rigide","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -277,9 +271,8 @@
 "Hexanchus griseus","Griset","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Hexanchus griseus","Griset","National","Ireland",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
 "Hexanchus griseus","Griset","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Hexanchus griseus","Griset","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Hexanchus griseus","Griset","National","NE Atlantic",NA,NA,"NT",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Hexanchus griseus","Griset","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Hexanchus griseus","Griset","Regional","Mediterranean Sea","NT-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"NT"
 "Hydrolagus affinis","Chimère à petits yeux","Continental","Europe",NA,NA,"LC",2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Hydrolagus affinis","Chimère à petits yeux","International","World","LC-LC",12,"LC",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,2007,"LC"
 "Hydrolagus affinis","Chimère à petits yeux","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -292,9 +285,8 @@
 "Isurus oxyrinchus","Requin-taupe bleu","International","World","VU-EN",14,"EN",2018,NA,NA,NA,NA,"LR/nt",NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,2004,"VU"
 "Isurus oxyrinchus","Requin-taupe bleu","National","Ireland",NA,NA,"NE",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NE",NA,NA,NA,NA,NA,NA,NA
 "Isurus oxyrinchus","Requin-taupe bleu","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Isurus oxyrinchus","Requin-taupe bleu","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Isurus oxyrinchus","Requin-taupe bleu","National","NE Atlantic",NA,NA,"VU",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Isurus oxyrinchus","Requin-taupe bleu","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Isurus oxyrinchus","Requin-taupe bleu","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Lamna nasus","Requin-taupe commun","Continental","Europe",NA,NA,"CR",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA
 "Lamna nasus","Requin-taupe commun","International","World","VU-VU",12,"VU",2018,NA,NA,"VU",NA,"LR/nt",NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,2006,"VU"
 "Lamna nasus","Requin-taupe commun","National","Baltic Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -302,6 +294,7 @@
 "Lamna nasus","Requin-taupe commun","National","Canada","EN-CR",10,"CR",2014,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,2004,"EN"
 "Lamna nasus","Requin-taupe commun","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Lamna nasus","Requin-taupe commun","National","France",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Lamna nasus","Requin-taupe commun","National","France (continental)",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Lamna nasus","Requin-taupe commun","National","Germany",NA,NA,"3",1998,NA,NA,NA,"3",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Lamna nasus","Requin-taupe commun","National","Ireland",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
 "Lamna nasus","Requin-taupe commun","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -312,24 +305,25 @@
 "Leucoraja circularis","Raie circulaire","International","World","VU-EN",6,"EN",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,2008,"VU"
 "Leucoraja circularis","Raie circulaire","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja circularis","Raie circulaire","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Leucoraja circularis","Raie circulaire","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja circularis","Raie circulaire","National","Ireland",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
 "Leucoraja circularis","Raie circulaire","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja circularis","Raie circulaire","National","NE Atlantic",NA,NA,"VU",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja circularis","Raie circulaire","Regional","Mediterranean Sea","EN-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"EN"
 "Leucoraja fullonica","Raie chardon","International","World","NT-VU",8,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,2006,"NT"
 "Leucoraja fullonica","Raie chardon","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Leucoraja fullonica","Raie chardon","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja fullonica","Raie chardon","National","Ireland",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
 "Leucoraja fullonica","Raie chardon","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Leucoraja fullonica","Raie chardon","National","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja fullonica","Raie chardon","National","NE Atlantic",NA,NA,"NT",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja fullonica","Raie chardon","National","Norway","DD-NT",4,"NT",2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2006,"DD"
-"Leucoraja fullonica","Raie chardon","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Leucoraja fullonica","Raie chardon","Regional","Mediterranean Sea","DD-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"DD"
 "Leucoraja naevus","Raie fleurie","International","World","LC-LC",6,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,2008,"LC"
 "Leucoraja naevus","Raie fleurie","National","France",NA,NA,"VU",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Leucoraja naevus","Raie fleurie","National","France (continental)",NA,NA,"VU",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Leucoraja naevus","Raie fleurie","National","Ireland",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
 "Leucoraja naevus","Raie fleurie","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Leucoraja naevus","Raie fleurie","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Leucoraja naevus","Raie fleurie","Regional","Mediterranean Sea",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
+"Leucoraja naevus","Raie fleurie","Regional","Mediterranean Sea","NT-NT",9,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,2007,"NT"
 "Leucoraja naevus","Raie fleurie","Regional","NE Atlantic",NA,NA,"LC",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mitsukurina owstoni","Requin-lutin","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mitsukurina owstoni","Requin-lutin","International","World","LC-LC",13,"LC",2017,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,2004,"LC"
@@ -346,49 +340,45 @@
 "Mustelus asterias","Émissole tachetée","International","World","LC-NT",14,"NT",2020,NA,NA,NA,NA,"LR/lc",NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,2006,"LC"
 "Mustelus asterias","Émissole tachetée","National","Croatia",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus asterias","Émissole tachetée","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Mustelus asterias","Émissole tachetée","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus asterias","Émissole tachetée","National","Germany",NA,NA,"R",1998,NA,NA,NA,"R",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus asterias","Émissole tachetée","National","Ireland",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
 "Mustelus asterias","Émissole tachetée","National","Italy",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Mustelus asterias","Émissole tachetée","National","Mediterranean Sea",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus asterias","Émissole tachetée","National","NE Atlantic",NA,NA,"LC",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Mustelus asterias","Émissole tachetée","Regional","Mediterranean Sea",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
+"Mustelus asterias","Émissole tachetée","Regional","Mediterranean Sea","VU-VU",9,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,2007,"VU"
 "Mustelus mustelus","Émissole lisse","Continental","Europe",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus mustelus","Émissole lisse","International","World","VU-EN",16,"EN",2020,NA,NA,NA,NA,"LR/lc",NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,2004,"VU"
 "Mustelus mustelus","Émissole lisse","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus mustelus","Émissole lisse","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus mustelus","Émissole lisse","National","Italy",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Mustelus mustelus","Émissole lisse","National","Mediterranean Sea",NA,NA,"VU",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Mustelus mustelus","Émissole lisse","Regional","Mediterranean Sea",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
+"Mustelus mustelus","Émissole lisse","Regional","Mediterranean Sea","VU-VU",9,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,2007,"VU"
 "Mustelus punctulatus","Émissole pointillée","Continental","Europe",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus punctulatus","Émissole pointillée","International","World","DD-VU",17,"VU",2020,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2003,"DD"
 "Mustelus punctulatus","Émissole pointillée","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus punctulatus","Émissole pointillée","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Mustelus punctulatus","Émissole pointillée","National","Italy",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Mustelus punctulatus","Émissole pointillée","National","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Mustelus punctulatus","Émissole pointillée","Regional","Mediterranean Sea",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
+"Mustelus punctulatus","Émissole pointillée","Regional","Mediterranean Sea","DD-VU",9,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,2007,"DD"
 "Myliobatis aquila","Aigle de mer","Continental","Europe",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Myliobatis aquila","Aigle de mer","International","World","DD-CR",15,"CR",2020,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,2005,"DD"
 "Myliobatis aquila","Aigle de mer","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Myliobatis aquila","Aigle de mer","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Myliobatis aquila","Aigle de mer","National","France (continental)",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Myliobatis aquila","Aigle de mer","National","Ireland",NA,NA,"NE",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NE",NA,NA,NA,NA,NA,NA,NA
 "Myliobatis aquila","Aigle de mer","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Myliobatis aquila","Aigle de mer","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Myliobatis aquila","Aigle de mer","National","NE Atlantic",NA,NA,"DD",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Myliobatis aquila","Aigle de mer","Regional","Mediterranean Sea",NA,NA,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA
+"Myliobatis aquila","Aigle de mer","Regional","Mediterranean Sea","NT-VU",9,"VU",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,2007,"NT"
 "Odontaspis ferox","Requin-féroce","Continental","Europe",NA,NA,"CR",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Odontaspis ferox","Requin-féroce","International","World","VU-VU",8,"VU",2015,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,"VU",NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,2007,"VU"
 "Odontaspis ferox","Requin-féroce","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Odontaspis ferox","Requin-féroce","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Odontaspis ferox","Requin-féroce","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Odontaspis ferox","Requin-féroce","National","Mediterranean Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Odontaspis ferox","Requin-féroce","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Odontaspis ferox","Requin-féroce","Regional","Mediterranean Sea","EN-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"EN"
 "Oxynotus centrina","Centrine commune","Continental","Europe",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Oxynotus centrina","Centrine commune","International","World","VU-EN",13,"EN",2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,2007,"VU"
 "Oxynotus centrina","Centrine commune","National","Croatia",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Oxynotus centrina","Centrine commune","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Oxynotus centrina","Centrine commune","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Oxynotus centrina","Centrine commune","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Oxynotus centrina","Centrine commune","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Oxynotus centrina","Centrine commune","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Oxynotus paradoxus","Humantin","Continental","Europe",NA,NA,"DD",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Oxynotus paradoxus","Humantin","International","World","DD-VU",12,"VU",2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2008,"DD"
 "Oxynotus paradoxus","Humantin","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -401,6 +391,7 @@
 "Prionace glauca","Requin peau bleau","National","Canada","EN-VU",8,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,2006,"EN"
 "Prionace glauca","Requin peau bleau","National","Croatia",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Prionace glauca","Requin peau bleau","National","France",NA,NA,"NT",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Prionace glauca","Requin peau bleau","National","France (continental)",NA,NA,"NT",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Prionace glauca","Requin peau bleau","National","Ireland",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
 "Prionace glauca","Requin peau bleau","National","Italy",NA,NA,"VU",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Prionace glauca","Requin peau bleau","National","NE Atlantic",NA,NA,"NT",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -414,8 +405,7 @@
 "Pristis pristis","Poisson-scie commun","Continental","Europe",NA,NA,"CR",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA
 "Pristis pristis","Poisson-scie commun","International","World",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Pristis pristis","Poisson-scie commun","National","Italy",NA,NA,"NA",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Pristis pristis","Poisson-scie commun","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Pristis pristis","Poisson-scie commun","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Pristis pristis","Poisson-scie commun","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Pseudotriakis microdon","Requin à longue dorsale","Continental","Europe",NA,NA,"DD",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Pseudotriakis microdon","Requin à longue dorsale","International","World","DD-LC",11,"LC",2015,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,2004,"DD"
 "Pseudotriakis microdon","Requin à longue dorsale","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -427,15 +417,13 @@
 "Pteroplatytrygon violacea","Pastenague violette","National","France",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Pteroplatytrygon violacea","Pastenague violette","National","Ireland",NA,NA,"NE",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NE",NA,NA,NA,NA,NA,NA,NA
 "Pteroplatytrygon violacea","Pastenague violette","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Pteroplatytrygon violacea","Pastenague violette","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Pteroplatytrygon violacea","Pastenague violette","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Pteroplatytrygon violacea","Pastenague violette","Regional","Mediterranean Sea","NT-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"NT"
 "Pteroplatytrygon violacea","Pastenague violette","Regional","NE Atlantic",NA,NA,"LC",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja asterias","Raie etoilée","International","World","LC-NT",7,"NT",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,2007,"LC"
 "Raja asterias","Raie etoilée","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja asterias","Raie etoilée","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja asterias","Raie etoilée","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja asterias","Raie etoilée","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja asterias","Raie etoilée","Regional","Mediterranean Sea",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
+"Raja asterias","Raie etoilée","Regional","Mediterranean Sea","LC-NT",9,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,2007,"LC"
 "Raja brachyura","Raie lisse","Continental","Europe",NA,NA,"NT",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja brachyura","Raie lisse","International","World",NA,NA,"NT",2008,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja brachyura","Raie lisse","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -465,8 +453,7 @@
 "Raja miraletus","Raie-miroir","International","World",NA,NA,"LC",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA
 "Raja miraletus","Raie-miroir","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja miraletus","Raie-miroir","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja miraletus","Raie-miroir","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja miraletus","Raie-miroir","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Raja miraletus","Raie-miroir","Regional","Mediterranean Sea","LC-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"LC"
 "Raja montagui","Raie douce","Continental","Europe",NA,NA,"LC",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA
 "Raja montagui","Raie douce","International","World",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja montagui","Raie douce","National","Baltic Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -474,19 +461,18 @@
 "Raja montagui","Raie douce","National","Germany",NA,NA,"3",1998,NA,NA,NA,"3",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja montagui","Raie douce","National","Ireland",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
 "Raja montagui","Raie douce","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja montagui","Raie douce","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja montagui","Raie douce","National","NE Atlantic",NA,NA,"LC",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja montagui","Raie douce","National","Norway",NA,NA,"DD",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja montagui","Raie douce","Regional","Mediterranean Sea",NA,NA,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA
+"Raja montagui","Raie douce","Regional","Mediterranean Sea","LC-LC",9,"LC",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,2007,"LC"
 "Raja polystigma","Raie tachetée","International","World","NT-LC",11,"LC",2014,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,2003,"NT"
 "Raja polystigma","Raie tachetée","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja polystigma","Raie tachetée","National","Italy",NA,NA,"LC",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja polystigma","Raie tachetée","National","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Raja polystigma","Raie tachetée","Regional","Mediterranean Sea",NA,NA,"NT",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja radula","Raie râpe","International","World","EN-EN",2,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,"EN",NA,"EN",NA,NA,NA,NA,NA,2014,"EN"
 "Raja radula","Raie râpe","National","Croatia",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja radula","Raie râpe","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja radula","Raie râpe","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Raja radula","Raie râpe","National","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Raja radula","Raie râpe","Regional","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja rondeleti","Raie de Rondelet","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Raja undulata","Raie brunette","Continental","Europe",NA,NA,"NT",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA,NA
 "Raja undulata","Raie brunette","International","World",NA,NA,"EN",2003,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -501,8 +487,7 @@
 "Rhinobatos rhinobatos","Raie-guitare commune","Continental","Europe",NA,NA,"EN",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Rhinobatos rhinobatos","Raie-guitare commune","International","World","EN-CR",13,"CR",2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,2007,"EN"
 "Rhinobatos rhinobatos","Raie-guitare commune","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Rhinobatos rhinobatos","Raie-guitare commune","National","Mediterranean Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Rhinobatos rhinobatos","Raie-guitare commune","Regional","Mediterranean Sea",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
+"Rhinobatos rhinobatos","Raie-guitare commune","Regional","Mediterranean Sea","EN-EN",9,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,2007,"EN"
 "Rhinochimaera atlantica","Chimère à nez mou","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Rhinochimaera atlantica","Chimère à nez mou","International","World","LC-LC",13,"LC",2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,2006,"LC"
 "Rhinochimaera atlantica","Chimère à nez mou","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -518,9 +503,8 @@
 "Rostroraja alba","Raie blanche","National","France",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Rostroraja alba","Raie blanche","National","Ireland",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
 "Rostroraja alba","Raie blanche","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Rostroraja alba","Raie blanche","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Rostroraja alba","Raie blanche","National","NE Atlantic",NA,NA,"CR",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Rostroraja alba","Raie blanche","Regional","Mediterranean Sea",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
+"Rostroraja alba","Raie blanche","Regional","Mediterranean Sea","CR-EN",9,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,2007,"CR"
 "Scyliorhinus canicula","Petite roussette","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Scyliorhinus canicula","Petite roussette","International","World",NA,NA,"LC",2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA
 "Scyliorhinus canicula","Petite roussette","National","Baltic Sea",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -558,9 +542,8 @@
 "Somniosus rostratus","Laimargue de Méditerranée","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Somniosus rostratus","Laimargue de Méditerranée","National","Ireland",NA,NA,"NE",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NE",NA,NA,NA,NA,NA,NA,NA
 "Somniosus rostratus","Laimargue de Méditerranée","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Somniosus rostratus","Laimargue de Méditerranée","National","Mediterranean Sea",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Somniosus rostratus","Laimargue de Méditerranée","National","NE Atlantic",NA,NA,"DD",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Somniosus rostratus","Laimargue de Méditerranée","Regional","Mediterranean Sea",NA,NA,"DD",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA
+"Somniosus rostratus","Laimargue de Méditerranée","Regional","Mediterranean Sea","LC-DD",9,"DD",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,2007,"LC"
 "Sphyrna lewini","Requin-marteau halicorne","Continental","Europe",NA,NA,"DD",2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA
 "Sphyrna lewini","Requin-marteau halicorne","International","World","EN-CR",11,"CR",2018,NA,NA,NA,NA,"LR/nt",NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,2007,"EN"
 "Sphyrna lewini","Requin-marteau halicorne","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -582,6 +565,7 @@
 "Squalus acanthias","Aiguillat commun","National","Canada",NA,NA,"VU",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squalus acanthias","Aiguillat commun","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squalus acanthias","Aiguillat commun","National","France",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Squalus acanthias","Aiguillat commun","National","France (continental)",NA,NA,"EN",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squalus acanthias","Aiguillat commun","National","Germany",NA,NA,"3",1998,NA,NA,NA,"3",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squalus acanthias","Aiguillat commun","National","Ireland",NA,NA,"EN",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA
 "Squalus acanthias","Aiguillat commun","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -598,19 +582,18 @@
 "Squatina aculeata","Ange de mer épineux","International","World","CR-CR",10,"CR",2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN","CR",NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,2007,"CR"
 "Squatina aculeata","Ange de mer épineux","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina aculeata","Ange de mer épineux","National","Italy",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Squatina aculeata","Ange de mer épineux","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Squatina aculeata","Ange de mer épineux","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Squatina aculeata","Ange de mer épineux","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Squatina oculata","Ange de mer ocellé","Continental","Europe",NA,NA,"CR",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina oculata","Ange de mer ocellé","International","World","CR-CR",10,"CR",2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN","CR",NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,2007,"CR"
 "Squatina oculata","Ange de mer ocellé","National","Croatia",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina oculata","Ange de mer ocellé","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina oculata","Ange de mer ocellé","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Squatina oculata","Ange de mer ocellé","National","Mediterranean Sea",NA,NA,"CR",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Squatina oculata","Ange de mer ocellé","Regional","Mediterranean Sea",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
+"Squatina oculata","Ange de mer ocellé","Regional","Mediterranean Sea","CR-CR",9,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,2007,"CR"
 "Squatina squatina","Ange de mer commun","International","World","CR-CR",3,"CR",2017,NA,NA,NA,NA,"VU",NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,"CR",NA,NA,"CR",NA,NA,NA,NA,2014,"CR"
 "Squatina squatina","Ange de mer commun","National","Baltic Sea","EN-NA",6,"NA",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,"NA",NA,NA,NA,NA,NA,NA,NA,NA,2007,"EN"
 "Squatina squatina","Ange de mer commun","National","Croatia",NA,NA,"EN",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"EN",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina squatina","Ange de mer commun","National","France",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Squatina squatina","Ange de mer commun","National","France (continental)",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina squatina","Ange de mer commun","National","Ireland",NA,NA,"CR",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA
 "Squatina squatina","Ange de mer commun","National","Italy",NA,NA,"CR",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"CR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Squatina squatina","Ange de mer commun","National","Sweden",NA,NA,"NA",2005,NA,NA,NA,NA,NA,NA,NA,NA,"NA",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -620,8 +603,8 @@
 "Tetronarce nobiliana","Torpille noire","National","France",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Tetronarce nobiliana","Torpille noire","National","Ireland",NA,NA,"NT",2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"NT",NA,NA,NA,NA,NA,NA,NA
 "Tetronarce nobiliana","Torpille noire","National","Italy",NA,NA,"DD",2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Tetronarce nobiliana","Torpille noire","National","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Tetronarce nobiliana","Torpille noire","National","NE Atlantic",NA,NA,"LC",2006,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Tetronarce nobiliana","Torpille noire","Regional","Mediterranean Sea",NA,NA,"DD",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Torpedo marmorata","Torpille marbrée","Continental","Europe",NA,NA,"LC",2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA
 "Torpedo marmorata","Torpille marbrée","International","World","DD-VU",17,"VU",2020,NA,NA,NA,NA,NA,NA,"DD",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"VU",NA,2003,"DD"
 "Torpedo marmorata","Torpille marbrée","National","Croatia",NA,NA,"LC",2007,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"LC",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
