@@ -82,8 +82,8 @@ Status_IUCN <- left_join(Status_IUCN, elasmo_FR[c("Species", "Groupe", "Family")
 
 #transform
 Status_IUCN$Before_last_status[is.na(Status_IUCN$Before_last_status)] <- "NE"
-Status_IUCN$Last_status <- factor(Status_IUCN$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
-Status_IUCN$Before_last_status <- factor(Status_IUCN$Before_last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
+Status_IUCN$Last_status <- factor(Status_IUCN$Last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))
+Status_IUCN$Before_last_status <- factor(Status_IUCN$Before_last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))
 
 #summary table
 summary_evolution <- Status_IUCN %>% filter(Region %in% "World") %>% group_by(Groupe, Status_evolution) %>% summarise(Species = length(Species)) %>% mutate(Perc_spp = round((Species/98)*100, 2))
@@ -91,16 +91,16 @@ write_xlsx(summary_evolution, "data\\Summary_evolution.xlsx")
 
 ```
 
+### Overview regional
 ```{r stackedbar_iucn, echo = FALSE}
 #group by region, group, status do a stacked bar by group ??
 IUCN_summary <- Status_IUCN %>% #get the family from the elasmo_iucn df
   dplyr::group_by(Last_status, Groupe, Region) %>% 
   dplyr::summarise(Nb.species = length(Species))
 
-IUCN_summary_EU <- IUCN_summary %>% filter(Region %in% c("World", "Europe", "Mediterranean Sea", "France", "Baltic Sea"))
+IUCN_summary_EU <- IUCN_summary %>% filter(Region %in% c("Europe", "Mediterranean Sea", "Baltic Sea", "NE Atlantic"))
 
-#reorder by status and region
-IUCN_summary_EU$Last_status <- factor(IUCN_summary_EU$Last_status ,levels = c("DD","LC", "NT", "VU", "EN", "CR"))
+#reorder by region
 IUCN_summary_EU$Region <- factor(IUCN_summary_EU$Region ,levels = unique(IUCN_summary_EU$Region))
   
 status <- ggplot(data = IUCN_summary_EU, aes(x = Last_status, y= Nb.species, fill = as.factor(Groupe))) + 
@@ -112,8 +112,10 @@ status <- ggplot(data = IUCN_summary_EU, aes(x = Last_status, y= Nb.species, fil
     theme(axis.title.x = element_blank(),
         axis.text.x= element_text(size=10,angle = 0),
         axis.text.y = element_text(size=10),
-        legend.position = "bottom") + facet_wrap(~Region, ncol = 3)
-ggsave("figs\\Regional_status.png", width = 8, height = 6)
+        legend.position = "bottom") + facet_wrap(~Region, ncol = 4)
+
+#save
+ggsave("figs\\Regional_status_ligne.png", width = 8, height = 3)
 ```
 
 ### IUCN chimères
@@ -306,12 +308,12 @@ ggsave("figs\\heatmap_ospar.png", width = 6, height  = 4)
 #filter DD france
 species_DD_FR <- Status_IUCN %>% filter(Region %in% "France" & Last_status %in% "DD")
 species_DD_FR <- species_DD_FR$Species
-IUCN_DD_FR <- Status_IUCN %>% filter(Species %in% species_DD_FR) %>% filter(Region != "France") %>% na_if("NA") %>% filter(is.na(Last_status) == F) %>% mutate_all(as.character)
-IUCN_DD_FR$Last_status <- factor(IUCN_DD_FR$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
+IUCN_DD_FR <- Status_IUCN %>% filter(Species %in% species_DD_FR) %>% filter(Region != "France") %>% mutate_all(as.character)
+IUCN_DD_FR$Last_status <- factor(IUCN_DD_FR$Last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))
 
 #create two way table
 IUCN_DD_FR_freq <- table(IUCN_DD_FR$Region, IUCN_DD_FR$Last_status) %>% as.data.frame() %>% 
-  pivot_wider(names_from = Var2, values_from = Freq) %>% mutate(Total = select(., "DD":"CR") %>% rowSums(na.rm = TRUE)) %>% rename(Region = Var1)
+  pivot_wider(names_from = Var2, values_from = Freq) %>% mutate(Total = select(., "NA":"RE") %>% rowSums(na.rm = TRUE)) %>% rename(Region = Var1)
 
 write_xlsx(IUCN_DD_FR_freq, "data\\IUCN_DD_FR.xlsx")
 

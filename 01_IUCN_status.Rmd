@@ -163,8 +163,8 @@ IUCN_zsl <- read_xlsx("data/ZSL_IUCN_04022.xlsx") %>% mutate(Species = paste(gen
   mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea"), "Regional", "National")) %>% mutate_all(as.character)
 
 ## ATENTION I completed the version abaove by hand
-IUCN_zsl <- read_xlsx("data/ZSL_IUCN_completed.xlsx")  %>%
-  mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea"), "Regional", "National")) %>% mutate_all(as.character)
+IUCN_zsl <- read_xlsx("data/ZSL_IUCN_completed.xlsx")  %>% filter(Species %in% species_names) %>% select(Species, Region, Status, Year) %>%
+  mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea", "NE Atlantic"), "Regional", "National")) %>% mutate_all(as.character)
 
 #convert the value to bind with french list and avoid duplicated rows
 IUCN_zsl[IUCN_zsl == "France (continental)"] <- "France"

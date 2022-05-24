@@ -64,6 +64,8 @@ The 'extract_table' function from the 'tabulizer' package extracts tables from p
 #initialize empty tibble
 ICES_stock_cat <- tibble()
 
+NE <- extract_tables(file = "~\\Ireland - Red List 11 Sharks et al.pdf", method= "decide", output = "data.frame", pages = c(1))
+
 ##loop over species
 for(j in 1:length(stocks)){
   #select the stock
