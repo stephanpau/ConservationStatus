@@ -126,7 +126,7 @@ IUCN_europe <- IUCN_europe %>% drop_na() %>% mutate(Level = "Continental", Regio
   mutate_all(as.character)
 ```
 
-## Extract Mediterranean status and nationale level lists from the zsl
+## Extract Mediterranean status
 ```{r IUCN_med, message=FALSE, warning=F}
 #initialize empty df
 IUCN_med <- tibble(Year = NA, Status= NA, Species = NA)
