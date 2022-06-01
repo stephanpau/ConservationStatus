@@ -31,6 +31,7 @@ library(RColorBrewer)
 palette <- brewer.pal(n = 8, name = "Dark2") #%>% c(., brewer.pal(n = 12, name = "Paired")) %>% c(., brewer.pal(n = 8, name = "Set2"))
 ```
 
+# Load data
 ```{r load_data, echo = F}
 #french elasmos
 elasmo_FR <- read.csv("data\\elasmo_uicn_france.csv") %>% as_tibble() %>% rename(Species = 'Species')
@@ -74,6 +75,9 @@ ICES_stock_cat <- ICES_stock_cat %>% left_join(ICES_advice[c("Stock", "Species")
 
 #print table of stock categories ICES
 #write_xlsx(ICES_stock_cat, "data\\ICES_stock_cat.xlsx")
+
+#Load the supplementary material of Walls and Dulvy 2021 (can be doowloaded from https://www.nature.com/articles/s41598-021-94632-4)
+Walls_Dulvy <- read_xlsx("data\\Walls and Dulvy 2021.xlsx", skip = 6)
 ```
 
 # Table with species evaluated in each evaluation
@@ -397,6 +401,22 @@ IUCN_summary <- Status_IUCN %>% #get the family from the elasmo_iucn df
   dplyr::summarise(Nb.species = length(Species))
 ```
 
+### Comparison with Walls and Dulvy 2021
+```{r walls_dulvy}
+species_DD <- elasmo_FR %>% filter(Cat_liste.rouge.France == "DD")
+species_DD <- species_DD$Species
+colnames(Walls_Dulvy)
+
+#select only french DD species in Walls Dulvy
+Walls_Dulvy_DD <- Walls_Dulvy %>% rename(Species = "Species latin name",
+                                         Original_2015_status = "Original 2015 sub-regional statuses before merging to EU Europe categories (without predicting from previous work)",
+                                         Predicted_2015_status = "2015 status (DD listings predicted for statistically)") %>% 
+  filter(Species %in% species_DD) #%>% select(Region, Species, Original_2015_status, Predicted_2015_status)
+
+#now check what statuses were predicted for the species originally classified as DD in med and NEA
+Walls_Dulvy_DD <- Walls_Dulvy_DD %>% filter(Original_2015_status == "DD")
+```
+
 ### Heatmap all
 ```{r heatmap_all}
 #heatmap
@@ -514,7 +534,7 @@ ggsave("figs\\heatmap_fc1.png", width = 10, height  = 10, units = "cm")
 # Présence dans les conventions
 ```{r conventions}
 Appendices <- Appendices %>% select(-CITES_listing_year)
-write_xlsx(Appendices, "data\\Appendices.xlsx")
+#write_xlsx(Appendices, "data\\Appendices.xlsx")
 ```
 # Annexe
 ```{r tableaux_annexe, echo = FALSE}

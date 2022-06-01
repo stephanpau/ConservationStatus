@@ -35,3 +35,27 @@ elasmo_FR$Species[elasmo_FR$Species == "Pteromylaeus bovinus"] <- "Aetomylaeus b
 #export table with corrected names to reuse it in other scripts
 write.csv(elasmo_FR, "data\\elasmo_uicn_france.csv")
 ```
+
+# Create df with species french names, latin names and english names
+```{r}
+OegNiel <- read_excel("data/oegelund_nielsen_data.xlsx") %>% filter(Species %in% species_names) %>% select(Species,Common_name_FB) 
+
+df_spp <- left_join(elasmo_FR[c("Groupe", "Family", "Species", "Nom commun")], OegNiel) %>% arrange(Groupe, Family, Species) %>%
+  mutate(Comment = NA)
+
+#mettre en commentaire les noms qui ont changé
+#Need to correct some misspelling/updates in this df, it was spotted by the NAs after the first run
+df_spp$Comment[df_spp$Species == "Bathyraja richardsoni"] <- "Bathyraja richarsoni"
+df_spp$Comment[df_spp$Species == "Bathytoshia centroura"] <- "Dasyatis centroura"
+df_spp$Comment[df_spp$Species == "Odontaspis ferox"] <- "Odontapsis ferox"
+df_spp$Comment[df_spp$Species == "Dipturus intermedius"] <- "Dipturus intermedia"
+df_spp$Comment[df_spp$Species == "Raja undulata"] <- "Raja undalata"
+df_spp$Comment[df_spp$Species == "Glaucostegus cemiculus"] <- "Rhinobatos cemiculus"
+df_spp$Comment[df_spp$Species == "Squalus blainville"] <- "Squalus blainvillei"
+df_spp$Comment[df_spp$Species == "Centrophorus uyato"] <- "Squalus uyato"
+df_spp$Comment[df_spp$Species == "Tetronarce nobiliana"] <- "Torpedo nobiliana"
+df_spp$Comment[df_spp$Species == "Aetomylaeus bovinus"] <- "Pteromylaeus bovinus"
+
+#nom€n français
+df_spp <- df_spp %>% rename(Famille = Family, Espèce = Species, "Nom anglais" = "Common_name_FB")
+```
