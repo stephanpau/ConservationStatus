@@ -13,7 +13,7 @@ library(reactablefmtr)
 # Load data
 ```{r data}
 #IUCN_status
-Elasmobranchs_IUCN_historical_status <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8",check.names = F)
+Elasmobranchs_IUCN_historical_status <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8",check.names = F) %>% filter(Region != "France (continental)") %>% select(-"Before_last_evaluation", -"Before_last_status")
 
 #Conventions
 Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
@@ -37,6 +37,7 @@ colnames(Elasmobranchs_IUCN_historical_status)
 #reactable package
 Elasmo_IUCN_html <- reactable(Elasmobranchs_IUCN_historical_status,
                   pagination = F, #all on one page
+                  filterable = T,
                   showPageSizeOptions = T,
                   onClick = "select", #select the row when you click
                   highlight = T, #highlight the rows on hover
@@ -78,7 +79,8 @@ save_reactable_test(Elasmo_IUCN_html, "html_output/Elasmo_IUCN_historical_table.
 appendices_html <- reactable(Appendices, 
                              pagination = F, 
                              highlight = T, 
-                             striped = T)
+                             striped = T,
+                             filterable = T)
 save_reactable_test(appendices_html, "html_output/Appendices_html_table.html")
 ```
 
@@ -97,6 +99,7 @@ status_color <- Status_OSPAR %>%
 OSPAR_html <- reactable(status_color,
                         pagination = F,
                         highlight = T,
+                        filterable = T,
                         striped = T,
                         defaultSorted = 'Last_status',
                         columns = list(
@@ -119,7 +122,8 @@ ICES_wide <- ICES_advice %>% filter(Year %in% "2018":"2023") %>% pivot_wider(nam
 ICES_html <- reactable(ICES_wide,
                         pagination = F,
                         highlight = T,
-                        striped = T)
+                        striped = T,
+                       filterable = T)
 
 save_reactable_test(ICES_html, "html_output/ICES_html_table.html")
 ```

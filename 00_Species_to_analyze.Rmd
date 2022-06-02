@@ -58,4 +58,6 @@ df_spp$Comment[df_spp$Species == "Aetomylaeus bovinus"] <- "Pteromylaeus bovinus
 
 #nom€n français
 df_spp <- df_spp %>% rename(Famille = Family, Espèce = Species, "Nom anglais" = "Common_name_FB")
+
+write_xlsx(df_spp, "data\\Elasmobranches_présents_FR.xlsx")
 ```
