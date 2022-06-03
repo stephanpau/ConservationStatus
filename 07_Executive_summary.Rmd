@@ -21,7 +21,8 @@ library(ggsankey)
 library(IUCNpalette)
 IUCN_palette <- iucn_palette()
 IUCN_palette[1] <- "lightgray"
-IUCN_palette[8] <- "lightskyblue"
+IUCN_palette[8] <- "black"
+IUCN_palette[9] <- "lightskyblue"
 names_IUCN <- names(iucn_palettes)[1:8]
 
 # Name your color vector
@@ -51,6 +52,7 @@ Status_IUCN$Level[Status_IUCN$Region == "Baltic Sea"] <- "Regional"
 Status_IUCN$Level[Status_IUCN$Region == "Mediterranean Sea"] <- "Regional"
 
 Status_IUCN$Last_status[Status_IUCN$Last_status == "nt"] <- "NT"
+Status_IUCN$Last_status[Status_IUCN$Last_status == "LR/nt"] <- "NT"
 
 
 #Conventions
@@ -415,6 +417,18 @@ Walls_Dulvy_DD <- Walls_Dulvy %>% rename(Species = "Species latin name",
 
 #now check what statuses were predicted for the species originally classified as DD in med and NEA
 Walls_Dulvy_DD <- Walls_Dulvy_DD %>% filter(Original_2015_status == "DD")
+
+Walls_Dulvy$Region[Walls_Dulvy$Region == "MED"] <- "Mediterranean Sea"
+Walls_Dulvy$Region[Walls_Dulvy$Region == "NEA"] <- "NE Atlantic"
+
+Walls_Dulvy_IUCN <- Walls_Dulvy %>% rename(Species = "Species latin name",
+                                         Original_2015_status = "Original 2015 sub-regional statuses before merging to EU Europe categories (without predicting from previous work)",
+                                         Predicted_2015_status = "2015 status (DD listings predicted for statistically)") %>%
+  filter(Species %in% species_names) %>%
+  select(Region, Species, Original_2015_status, Predicted_2015_status) %>%
+  full_join(., Status_IUCN)
+
+write_xlsx(Walls_Dulvy_IUCN, "data\\Walls_Dulvy_IUCN.xlsx")
 ```
 
 ### Heatmap all
@@ -427,8 +441,8 @@ heatmap_df <- Status_IUCN %>% filter(Region != "France") %>% left_join(.,elasmo_
   mutate(Status_FR = ifelse(is.na(Status_FR) == T, "Présence occasionnelle", Status_FR)) %>%
   select(Species, Level, Region, Last_status, Status_FR) %>% na_if("NA") %>% drop_na(Last_status)
 
-heatmap_df$Last_status <- factor(heatmap_df$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "3"))
-heatmap_df$Status_FR <- factor(heatmap_df$Status_FR, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "Rare"))
+heatmap_df$Last_status <- factor(heatmap_df$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3"))
+heatmap_df$Status_FR <- factor(heatmap_df$Status_FR, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "Rare"))
 
 #need to rename to french for the plot
 #rename variables to have them in French for the table
@@ -455,7 +469,7 @@ heatmap_df$Level <- factor(heatmap_df$Level, levels = c("Int", "Cont", "Régiona
 #plot
 ggplot(heatmap_df, aes(Region, Species)) +
   geom_tile(aes(fill = Last_status), colour = "white", lwd = .4) +
-  scale_fill_manual(values = IUCN_palette[1:8], na.translate = F) + 
+  scale_fill_manual(values = IUCN_palette[1:9], na.translate = F) + 
   theme_grey(base_size = 10)+
   theme(axis.title.x = element_blank(),
         axis.text.x= element_text(size = 8, angle = 90, vjust = 0.5),
@@ -468,7 +482,7 @@ ggplot(heatmap_df, aes(Region, Species)) +
   labs(y = "", title = "Derniers statuts UICN", subtitle = "Espèces classées par statut français (UICN 2013)") +
   guides(fill=guide_legend(title="Dernier statut"))
 
-ggsave("figs\\heatmap_all.png", width = 16, height  = 23, units = "cm")
+ggsave("figs\\heatmap_all2.png", width = 16, height  = 23, units = "cm")
 ```
 
 ## OSPAR
@@ -536,7 +550,39 @@ ggsave("figs\\heatmap_fc1.png", width = 10, height  = 10, units = "cm")
 Appendices <- Appendices %>% select(-CITES_listing_year)
 #write_xlsx(Appendices, "data\\Appendices.xlsx")
 ```
-# Annexe
-```{r tableaux_annexe, echo = FALSE}
 
+# Compter le nombre de statuts défavorables et le nombre de statuts favorables (med VS atl)
+```{r}
+Priority_IUCN <- Status_IUCN %>% filter(Region != "France") %>% 
+  left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France")]) %>% 
+  rename(Status_FR = Cat_liste.rouge.France) %>%
+  mutate_all(as.character) %>%
+  mutate(Region = as.character(Region)) %>%
+  select(Status_FR, Species, Nom.commun, Region, Last_status, Status_evolution) %>%
+  mutate(Façade = case_when(
+    Region == "Italy" | Region == "Croatia" | Region == "Albania" | Region == "Mediterranean Sea" ~ "Méditerranée",
+    Region == "NE Atlantic" | Region == "Norway" | Region == "Sweden" | 
+      Region == "United Kingdom" | Region == "Germany" | Region == "Ireland" | Region == "Baltic Sea" ~ "Atlantique")) %>%
+  drop_na(Façade) %>%
+  group_by(Façade, Species, Nom.commun, Status_FR) %>%
+  summarise(Nb.VU.EN.CR = sum(Last_status == "EN" |
+                                Last_status == "CR" |
+                                Last_status == "VU" |
+                                Last_status == "3", na.rm = T),
+            Nb.NT.LC = sum(Last_status == "NT" |
+                             Last_status == "LC", na.rm = T),
+            Nb.baisse = sum(Status_evolution == "EN-CR" |
+                              Status_evolution == "VU-CR" |
+                            Status_evolution == "NT-CR" |
+                            Status_evolution == "VU-EN" |
+                              Status_evolution == "NT-EN" |
+                              Status_evolution == "LC-EN" |
+                              Status_evolution == "NT-VU" | Status_evolution == "LC-VU",  na.rm = T),
+            Nb.stable = sum(Status_evolution == "CR-CR" |
+                              Status_evolution == "EN-EN" |
+                              Status_evolution == "VU-VU" |
+                              Status_evolution == "NT-NT" | 
+                            Status_evolution == "LC-LC", na.rm = T))
+#export
+write_xlsx(Priority_IUCN, "data\\Priority_IUCN.xlsx")
 ```
