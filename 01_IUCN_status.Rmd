@@ -173,6 +173,7 @@ IUCN_zsl[IUCN_zsl == "France (continental)"] <- "France"
 #There is a problem with the ifelse for the Med Sea, correct by hand
 IUCN_zsl[IUCN_zsl == "Mediterranean Sea"] <- "Mediterranean Sea"
 IUCN_zsl$Level[IUCN_zsl$Region == "Mediterranean Sea"] <- "Regional"
+IUCN_zsl$Level[IUCN_zsl$Region == "NE Atlantic"] <- "Regional"
 ```
 
 ## IUCN France
@@ -183,6 +184,24 @@ IUCN_FR <- elasmo_FR %>% select(Species, Cat_liste.rouge.France) %>%
   mutate_all(as.character) %>% na_if("NA")
 ```
 
+## IUCN NE Atlantic 2015 from Walls and Dulvy (2020)
+```{r}
+#Load the supplementary material of Walls and Dulvy 2021 (can be doowloaded from https://www.nature.com/articles/s41598-021-94632-4)
+Walls_Dulvy <- read_xlsx("data\\Walls and Dulvy 2021.xlsx", skip = 6)
+
+#rename region for unity
+Walls_Dulvy$Region[Walls_Dulvy$Region == "NEA"] <- "NE Atlantic"
+
+#put WD in shape for joining
+Walls_Dulvy_long <- Walls_Dulvy %>% filter(Region == "NE Atlantic") %>%
+  rename(Species = "Species latin name",
+  Status = "Original 2015 sub-regional statuses before merging to EU Europe categories (without predicting from previous work)") %>%
+    filter(Species %in% species_names) %>%
+  mutate(Year = 2015, Level = "Regional") %>%
+  select(Species, Status, Year, Region, Level) %>%
+  mutate_all(as.character)
+```
+
 # Bind all tables together
 ## Bind all
 ```{r bind_all}
@@ -191,6 +210,7 @@ IUCN_all <- full_join(IUCN_world, IUCN_europe) %>% #join world and europe
   full_join(., IUCN_med) %>% #join med
   full_join(., IUCN_zsl) %>% #join national lists compiled by zoological society of london
   full_join(., IUCN_FR) %>% #join french evaluation
+  full_join(., Walls_Dulvy_long) %>%
   distinct(.keep_all = TRUE) %>% #keep only distinct rows
   drop_na() #keep only existing evaluations
 ```

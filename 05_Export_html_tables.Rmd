@@ -13,7 +13,7 @@ library(reactablefmtr)
 # Load data
 ```{r data}
 #IUCN_status
-Elasmobranchs_IUCN_historical_status <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8",check.names = F) %>% filter(Region != "France (continental)") %>% select(-"Before_last_evaluation", -"Before_last_status")
+Elasmobranchs_IUCN_historical_status <- read_xlsx("data\\Elasmobranchs_IUCN_historical_status.xlsx") %>% filter(Region != "France (continental)") %>% select(-"Before_last_evaluation", -"Before_last_status")
 
 #Conventions
 Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
@@ -22,7 +22,7 @@ Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
 Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F) #to have symbols
 
 #ICES
-ICES_stock_cat <- read.csv("data\\ICES_stock_category.csv", encoding = "UTF-8", check.names = F) %>% select(-1) %>%
+ICES_stock_cat <- read.csv("data\\ICES_stock_categories.csv", encoding = "UTF-8", check.names = F) %>% select(-1) %>%
   rename(Stock = stock)#drop id col
 ICES_advice <- read.csv("data\\ICES_advice_history.csv", encoding = "UTF-8", check.names = F) %>% select(-1) #drop 1st id col
 ```
@@ -30,11 +30,47 @@ ICES_advice <- read.csv("data\\ICES_advice_history.csv", encoding = "UTF-8", che
 # Elasmo historical table
 ```{r display_iucn}
 #need to convert all to character
-Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% mutate(across(everything(), as.character))
+Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% mutate(across(everything(), as.character)) %>%
+  relocate(Last_status, .after = Region)
 
 Elasmobranchs_IUCN_historical_status[is.na(Elasmobranchs_IUCN_historical_status)] <- " " #replace NAs by blank for better visualisation
 colnames(Elasmobranchs_IUCN_historical_status)
-#reactable package
+
+#translate
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Baltic Sea"] <- "Baltique"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Mediterranean Sea"] <- "Méditerranée"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Croatia"] <- "Croatie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Italy"] <- "Italie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Ireland"] <- "Irlande"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Sweden"] <- "Suède"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Norway"] <- "Norvège"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Albania"] <- "Albanie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Germany"] <- "Allemagne"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "United Kingdom"] <- "Royaume-Uni"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "NE Atlantic"] <- "Atlantique NE"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
+Elasmobranchs_IUCN_historical_status$Level[Elasmobranchs_IUCN_historical_status$Level == "Regional"] <- "Régional"
+
+#Translate the column names to french
+Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% 
+  rename(Espèce = 1,
+         `Nom commun` = Nom.commun,
+         Niveau = Level,
+         Région = Region,
+         `Dernier statut` = Last_status,
+         `Evolution du statut` = Status_evolution,
+         `Années écoulées` = Years_apart,
+         `Dernière évaluation` = Last_evaluation)
+
+Appendices_long <- Appendices %>% select(-CITES_listing_year) %>%
+  rename(Berne = BERN_appendix, Barcelone = Barcelona_appendix, Washington = CITES_appendix, Bonn = CMS_appendix,
+         Espèce = "ï»¿Species") %>%
+  pivot_longer(cols = Berne : Bonn, names_to = "conventions", values_to = "Détail") %>%
+  unite(conventions:"Détail", col = conventions, remove = TRUE, sep = " ", na.rm = T) %>%
+  dplyr::group_by(Espèce) %>% dplyr::summarise(conventions = paste(unique(conventions), sep = ", "))
+
+#ctable package
 Elasmo_IUCN_html <- reactable(Elasmobranchs_IUCN_historical_status,
                   pagination = F, #all on one page
                   filterable = T,
