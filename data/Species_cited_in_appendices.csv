@@ -1,33 +1,38 @@
-﻿"Species","BERN_appendix","Barcelona_appendix","CITES_appendix","CITES_listing_year","CMS_appendix"
-"Alopias superciliosus",NA,NA,"II","2016","II"
-"Alopias vulpinus",NA,"III","II","2016","II"
-"Carcharhinus plumbeus",NA,"III",NA,NA,NA
-"Carcharias taurus",NA,"II",NA,NA,NA
-"Carcharodon carcharias","II","II","II","2001","I / II"
-"Centrophorus granulosus",NA,"III",NA,NA,NA
-"Cetorhinus maximus","II","II","II","2000","I / II"
-"Dipturus batis",NA,"II",NA,NA,NA
-"Galeorhinus galeus",NA,"II",NA,NA,"II"
-"Glaucostegus cemiculus",NA,"II","II","2019",NA
-"Gymnura altavela",NA,"II",NA,NA,NA
-"Heptranchias perlo",NA,"III",NA,NA,NA
-"Isurus oxyrinchus","III","II","II","2019","II"
-"Lamna nasus","III","II","II","2012","II"
-"Leucoraja circularis",NA,"II",NA,NA,NA
-"Mobula mobular","II","II","II","2016","I / II"
-"Mustelus asterias",NA,"III",NA,NA,NA
-"Mustelus mustelus",NA,"III",NA,NA,NA
-"Mustelus punctulatus",NA,"III",NA,NA,NA
-"Oxynotus centrina",NA,"II",NA,NA,NA
-"Prionace glauca","III","III",NA,NA,"II"
-"Pristis pectinata",NA,"II","I","2007","I / II"
-"Pristis pristis",NA,"II","I","2007","I / II"
-"Rhinobatos rhinobatos",NA,"II",NA,NA,"II"
-"Rostroraja alba","III","II",NA,NA,NA
-"Sphyrna lewini",NA,"II","II","2012","II"
-"Sphyrna mokarran",NA,"II","II","2013","II"
-"Sphyrna zygaena",NA,"II","II","2013","II"
-"Squalus acanthias",NA,"II",NA,NA,"II"
-"Squatina aculeata",NA,"II",NA,NA,NA
-"Squatina oculata",NA,"II",NA,NA,NA
-"Squatina squatina","III",NA,NA,NA,"I / II"
+﻿Species;BERN_appendix;Barcelona_appendix;CITES_appendix;CITES_listing_year;CMS_appendix;ICCAT;GFCM;OSPAR
+Alopias superciliosus;NA;NA;II;2016;II;X;;
+Alopias vulpinus;NA;III;II;2016;II;X;;
+Carcharhinus plumbeus;NA;III;NA;NA;NA;;;
+Carcharias taurus;NA;II;NA;NA;NA;;X;
+Carcharodon carcharias;II;II;II;2001;I / II;X;X;
+Centrophorus granulosus;NA;III;NA;NA;NA;;;X
+Centrophorus squamosus;;;;;;;;X
+Centroscymnus coelolepis;;;;;;;;X
+Cetorhinus maximus;II;II;II;2000;I / II;X;X;X
+Dipturus batis;NA;II;NA;NA;NA;;X;X
+Galeorhinus galeus;NA;II;NA;NA;II;;X;
+Glaucostegus cemiculus;NA;II;II;2019;NA;;X;
+Gymnura altavela;NA;II;NA;NA;NA;;X;
+Heptranchias perlo;NA;III;NA;NA;NA;;;
+Isurus oxyrinchus;III;II;II;2019;II;X;X;
+Lamna nasus;III;II;II;2012;II;X;X;x
+Leucoraja circularis;NA;II;NA;NA;NA;;X;
+Mobula mobular;II;II;II;2016;I / II;X;X;
+Mustelus asterias;NA;III;NA;NA;NA;;;
+Mustelus mustelus;NA;III;NA;NA;NA;;;
+Mustelus punctulatus;NA;III;NA;NA;NA;;;
+Odontaspis ferox;;;;;;;X;
+Oxynotus centrina;NA;II;NA;NA;NA;;X;
+Prionace glauca;III;III;NA;NA;II;X;;
+Pristis pectinata;NA;II;I;2007;I / II;;X;
+Pristis pristis;NA;II;I;2007;I / II;;X;
+Rhinobatos rhinobatos;NA;II;NA;NA;II;;X;
+Raja clavata;;;;;;;;X
+Raja montagui;;;;;;;;X
+Rostroraja alba;III;II;NA;NA;NA;;X;X
+Sphyrna lewini;NA;II;II;2012;II;X;;
+Sphyrna mokarran;NA;II;II;2013;II;X;X;
+Sphyrna zygaena;NA;II;II;2013;II;X;X;
+Squalus acanthias;NA;II;NA;NA;II;;X;
+Squatina aculeata;NA;II;NA;NA;NA;;X;
+Squatina oculata;NA;II;NA;NA;NA;;X;
+Squatina squatina;III;NA;NA;NA;I / II;;X;X
