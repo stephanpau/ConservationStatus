@@ -135,17 +135,30 @@ write.xlsx(Elasmo_with_OSPAR, "data\\Elasmo_final_table_with_OSPAR.xlsx", showNA
 
 ## HTML final table
 ```{r}
+Elasmo_with_OSPAR <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") %>% drop_na("Dernier statut") %>% select(-1)
+Elasmo_with_OSPAR[is.na(Elasmo_with_OSPAR) == T] <- ""
+
 #source : https://stackoverflow.com/questions/65914989/conditional-formatting-multiple-columns-in-reactable
 #test
-iucn_cols <- function(x) {
-      if(x == "CR"){"red"}
-      else if(x == "EN") {"orange"}
-      else if (x == "VU") {"gold"}
-      else if (x == "NT") {"forestgreen"}
-      else if (x == "LC") {"lightgreen" }
-      else if(x == "DD") {"lightgrey"}
-      else if(x == "declining") {"red"}
-      else{"white"}}
+iucn_cols <- function(x){
+  if(is.na(x) == T){""}
+  else if(x == "CR"){"red"}
+  else if(x == "EN") {"orange"}
+  else if (x == "VU") {"gold"}
+  else if (x == "NT") {"forestgreen"}
+  else if (x == "LC") {"lightgreen" }
+  else if(x == "DD") {"lightgrey"}
+  else if(x == "declining") {"mediumvioletred"}
+  else if(x == "stable"){"sandybrown"}
+  else if(x == "recovering"){"aquamarine"}
+  else if(x == "unknown"){"lightgrey"}
+  else if(x == "Good"){"lightgreen"}
+  else if(x == "Poor"){"orange"}
+  else if(x == "Unknown"){"lightgrey"}
+  else if(x == "3"){"lightblue"}
+  else if(x == "NA"){"white"}
+  else if(x == "Not applicable"){"white"}
+  else{""}}
 
 stylefunc <- function(value, index, name) {
   color <- iucn_cols(value)
@@ -165,7 +178,7 @@ coldefs <- rep(coldefs,length(cols))
 names(coldefs) <- cols
 
 #reactable package
-Elasmo_IUCN_html <- reactable(Elasmobranchs_IUCN_historical_status,
+Elasmo_IUCN_html <- reactable(Elasmo_with_OSPAR,
                   pagination = F, #all on one page
                   filterable = T,
                   showPageSizeOptions = T,
@@ -176,7 +189,7 @@ Elasmo_IUCN_html <- reactable(Elasmobranchs_IUCN_historical_status,
                 )
 
 
-save_reactable_test(Elasmo_IUCN_html, "html_output/Elasmo_IUCN_test5.html")
+save_reactable_test(Elasmo_IUCN_html, "html_output/Résultats_OE_statuts.html")
 ```
 
 # Convention tables
