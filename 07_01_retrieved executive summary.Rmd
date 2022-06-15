@@ -41,23 +41,37 @@ Status_IUCN <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encodi
 Status_IUCN <- read_xlsx("data\\Elasmobranchs_IUCN_historical_status.xlsx") %>% #problem with reading colnames...
   filter(Region != "Brazil" & Region != "Canada" & Region != "Venezuela") %>% #remove far away countries
   mutate(Before_last_evaluation = ifelse(is.na(Before_last_status), NA, Before_last_evaluation))
+
 #the mutate doesn't work right
 Status_IUCN$Level[Status_IUCN$Region == "NE Atlantic"] <- "Regional"
 Status_IUCN$Level[Status_IUCN$Region == "Baltic Sea"] <- "Regional"
 Status_IUCN$Level[Status_IUCN$Region == "Mediterranean Sea"] <- "Regional"
 Status_IUCN$Last_status[Status_IUCN$Last_status == "nt"] <- "NT"
 Status_IUCN$Last_status[Status_IUCN$Last_status == "LR/nt"] <- "NT"
+
 #Conventions
 Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F)
+
 #OSPAR Status
+##POSH
 Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F, sep = ";") %>% rename(Species = 1)#to have symbols
-#FC1
+
+##FC1
 spp_fc1 <- c("Dipturus spp", "Galeus spp")
 species_names_fc1 <- c(species_names, spp_fc1)
 FC1 <- read_xlsx("data\\FC1_integrated_outcomes.xlsx") %>% filter(species %in% species_names_fc1)
+
+#ICCAT et GCFM
+ICCAT_GFCM <- read.csv("data\\Status_ICCAT_GFCM.csv", sep = ";") %>% mutate(variable = "ICCAT + GFCM")
+
 #ICES
 ICES_advice <- read_xlsx("data\\ICES_advice_history_updated.xlsx") %>% rename(Species = 'Species')
-ICES_qualitative <- ICES_advice %>% filter(is.na(Stock_size_qualitative) == F) 
+ICES_qualitative <- ICES_advice %>% filter(is.na(Stock_size_qualitative) == F) %>% select(Species, Stock_size_qualitative, Stock, "Eco Region", Year) %>%
+  pivot_wider(names_from = Year, values_from = Stock_size_qualitative) %>%
+  relocate(Stock, .before = Species)
+ICES_qualitative <- read_xlsx("data\\ICES_qualitative_stock_eval.xlsx")
+#export
+#write_xlsx(ICES_qualitative, "data\\ICES_qualitative_stock_eval.xlsx")
 
 #
 ICES_stock_cat <- read_xlsx("data/ICES_stock_categories.xlsx") %>% rename(Stock = stock)
@@ -477,12 +491,12 @@ ggplot(heatmap_df, aes(Region, Species)) +
 ggsave("figs\\heatmap_all2.png", width = 16, height  = 23, units = "cm")
 ```
 
-## OSPAR
+## OSPAR, ICCAT, GFCM
 ### Heatmap "committee assessments"
 ```{r ospar, echo = FALSE}
 Status_OSPAR$Region[Status_OSPAR$Region == "II*"] <- "II"
 Status_OSPAR_summary <- Status_OSPAR %>% select(-Previous_status, -Year) %>% pivot_wider(names_from = "Region", values_from = "Last_status")
-write_xlsx(Status_OSPAR_summary, "data\\Status_OSPAR_summary.xlsx")
+#write_xlsx(Status_OSPAR_summary, "data\\Status_OSPAR_summary.xlsx")
 palette_OSPAR <- cbind("olivedrab3", "Lightgray", "Red", "Gray15", "Lightgray")
 #select only Region in French waters
 Status_OSPAR <- Status_OSPAR %>% filter(Region %in% c("II", "III", "IV"))
@@ -525,6 +539,72 @@ heatmap.fc1 <- ggplot(FC1, aes(msfd.region, species)) +
   facet_grid(.~ variable, scales = "free", space = "free", 
              labeller = labeller(variable = variable.names))
 ggsave("figs\\heatmap_fc1.png", width = 10, height  = 10, units = "cm")
+```
+
+### Heatmap ICES qualitatve
+
+### Heatmap all
+```{r}
+#format and bind FC1 and POSH
+POSH <- Status_OSPAR %>% select(Species, Region, Last_status) %>%
+  mutate(variable = "POSH")
+
+FC1_t <- FC1 %>% rename(Species = species, Region = msfd.region, Last_status = bi.res) %>%
+  select(Species, Region, Last_status, variable) %>%
+  mutate(variable = paste0("FC1 : ", variable), Last_status = str_to_title(Last_status)) 
+
+#bind
+FC1_POSH <- full_join(POSH, FC1_t)
+  
+#add ICCAT
+FC1_POSH_ICCAT <- full_join(FC1_POSH, ICCAT_GFCM)
+
+#add qualitative eval ICES
+#format it to have same region names as both above on excel based on maps of ICES regions
+ICES <- ICES_qualitative %>% 
+  mutate(Last_status = ifelse(is.na(ICES_qualitative$`2019`), ICES_qualitative$`2018`, ICES_qualitative$`2019`), variable = "ICES") %>%
+  mutate(Last_status = str_to_title(Last_status)) %>%
+  select(Species, Region, Last_status, variable)
+  
+#bind
+FC1_POSH_ICCAT_ICES <- full_join(FC1_POSH_ICCAT, ICES)
+
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "Ligurian and Tyrrhenian Seas"] <- "Med.*"
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "Dec"] <- "Declining"
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "Inc"] <- "Recovering"
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "FC1 : Long"] <- "FC1 : long terme"
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "FC1 : Short"] <- "FC1 : court terme"
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "ICES"] <- "CIEM"
+FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "ICCAT + GFCM"] <- "CICTA et CGPM"
+
+
+#heatmap
+palette_all <- cbind("red", "red", "olivedrab3", "lightgray", "red", "olivedrab3", "gold", "gray15", "darkorange")
+
+#names for facet grid
+variables <- unique(FC1_POSH_ICCAT_ICES$variable)
+variable.names <- c("POSH", "FC1 : Long terme", "FC1 : Court terme", "ICCAT et GFCM", "CIEM")
+names(variable.names) <- variables
+
+#heatmap
+ggplot(FC1_POSH_ICCAT_ICES, aes(Region, Species)) +
+  geom_tile(aes(fill = Last_status), colour = "white", lwd = .4) +
+  scale_fill_manual(values = palette_all) +
+  theme_grey(base_size = 8) +
+  theme(axis.title.x = element_blank(),
+        axis.text.x= element_text(angle = 90, vjust = 0.5),
+        strip.text.x = element_text(size = 6),
+        legend.position = "right",
+        legend.key.size =  unit(0.2, "cm"),
+        plot.margin=unit(c(0.1,0.1,0.1,0.1), 'cm')) +
+  labs(y = "", legend = "Résultat", title = "Evaluations hors UICN",
+       caption = "*Ligurian and Tyrrhenian Seas") +
+  guides(fill=guide_legend(title="Résultat")) +
+  facet_grid(.~ variable, scales = "free", space = "free", 
+             labeller = labeller(variable = label_wrap_gen(width=10)))
+
+#export
+ggsave("figs\\Evaluations_hors_UICN.png", width = 16, height = 11, units = 'cm')
 ```
 
 # Présence dans les conventions
