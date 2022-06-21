@@ -95,6 +95,7 @@ UICN_europe <- Status_IUCN$Species[Status_IUCN$Region == "Europe"] %>% as_tibble
 UICN_med  <- Status_IUCN$Species[Status_IUCN$Region == "Mediterranean Sea"] %>% unique() %>% as_tibble() %>% rename(Species = value) %>% mutate(UICN_Med = 1)
 UICN_Baltic <- Status_IUCN$Species[Status_IUCN$Region == "Baltic Sea"] %>% unique() %>% as_tibble() %>% rename(Species = value) %>% mutate(UICN_Baltic = 1)
 UICN_Atl <- Status_IUCN$Species[Status_IUCN$Region == "NE Atlantic"] %>% unique() %>% as_tibble() %>% rename(Species = value) %>% mutate(UICN_Atl = 1)
+
 #bind
 spp_eval <- full_join(ICCAT_species, OSPAR_POSH_spp) %>% full_join(. , OSPAR_FC1) %>% full_join(., UICN_europe)  %>% full_join(., UICN_med)  %>% full_join(., UICN_Baltic)  %>% full_join(., UICN_Atl) %>% left_join(., elasmo_FR[c("Species", "Groupe")]) %>% relocate(Groupe, .before = Species)
 write_xlsx(spp_eval, "data\\Presence_in_eval.xlsx")
@@ -105,7 +106,29 @@ write_xlsx(spp_eval, "data\\Presence_in_eval.xlsx")
 #transform
 elasmo_FR$Cat_liste.rouge.France <- factor(elasmo_FR$Cat_liste.rouge.France ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR"))
 summary_fr <- elasmo_FR %>% group_by(Groupe, Cat_liste.rouge.France) %>% summarise(Species = length(Species)) %>% mutate(Perc_spp = round((Species/98)*100, 2))
-write_xlsx(summary_fr, "data\\Summary_elasmo_FR.xlsx")
+
+#export
+#write_xlsx(summary_fr, "data\\Summary_elasmo_FR.xlsx")
+
+summary_fr <- summary_fr %>% mutate_all(as.character) %>% rename(Statut = Cat_liste.rouge.France) %>% 
+  mutate(Species = as.double(Species), Statut = ifelse(is.na(Statut) == T, "Prés. occ.", Statut)) %>% filter(Groupe != "Chimères")
+summary_fr$Statut <- factor(summary_fr$Statut, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "Prés. occ."))
+
+IUCN_colors[8] <- "lightblue"
+#bar chart by status
+ ggplot(summary_fr, aes(x = factor(Statut), y = Species, fill = Statut)) +
+  geom_bar(stat = "identity")+
+  scale_fill_manual(values = IUCN_colors[2:8], na.translate = F) +
+  theme_bw(base_size = 12)+
+  theme(axis.title.x = element_blank(),
+        axis.text.x= element_text(angle=0),
+        legend.key.size =  unit(0.8, "cm"),
+        legend.position = "bottom") +
+  facet_grid(.~Groupe) +
+  labs(title = "Evaluation UICN France & MNHN", fill = "Statut", y = "Nb. d'espèces", subtitle = "2013") +
+  scale_y_continuous(breaks=seq(0, 40, 5), sec.axis = sec_axis(~., breaks = seq(0, 40, 5)))
+
+ ggsave("figs\\UICN_FR_barchart.png", width = 10, height = 6)
 ```
 
 # Résumé de l'évolution des status
