@@ -38,7 +38,8 @@ Status_IUCN <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encodi
   mutate(Before_last_evaluation = ifelse(is.na(Before_last_status), NA, Before_last_evaluation)) %>%
   filter(Region != "France (continental)") %>% #oublier de les filtrer avant, rechecker script IUCN
   mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea", "NE Atlantic"), "Regional", Level))
-Status_IUCN <- read_xlsx("data\\Elasmobranchs_IUCN_historical_status.xlsx") %>% #problem with reading colnames...
+
+Status_IUCN <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") #%>% #problem with reading colnames...
   filter(Region != "Brazil" & Region != "Canada" & Region != "Venezuela") %>% #remove far away countries
   mutate(Before_last_evaluation = ifelse(is.na(Before_last_status), NA, Before_last_evaluation))
 
@@ -577,6 +578,15 @@ FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "FC1 : Short"] <- "FC1 : court terme"
 FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "ICES"] <- "CIEM"
 FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "ICCAT + GFCM"] <- "CICTA et CGPM"
 
+#add french status
+FC1_POSH_ICCAT_ICES <- left_join(FC1_POSH_ICCAT_ICES, elasmo_FR[c("Species", "Cat_liste.rouge.France")]) %>% 
+  rename(Status_FR = Cat_liste.rouge.France) %>% mutate(Status_FR = as.character(Status_FR)) %>% 
+  mutate(Status_FR = ifelse(is.na(Status_FR) == T, "Rare", Status_FR))
+
+FC1_POSH_ICCAT_ICES$Status_FR[FC1_POSH_ICCAT_ICES$Species == "Galeus spp"] <- " - "  
+FC1_POSH_ICCAT_ICES$Status_FR[FC1_POSH_ICCAT_ICES$Species == "Dipturus spp"] <- " - " 
+
+FC1_POSH_ICCAT_ICES$Status_FR <- factor(FC1_POSH_ICCAT_ICES$Status_FR, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "Rare", " - "))
 
 #heatmap
 palette_all <- cbind("red", "red", "olivedrab3", "lightgray", "red", "olivedrab3", "gold", "gray15", "darkorange")
@@ -597,14 +607,14 @@ ggplot(FC1_POSH_ICCAT_ICES, aes(Region, Species)) +
         legend.position = "right",
         legend.key.size =  unit(0.2, "cm"),
         plot.margin=unit(c(0.1,0.1,0.1,0.1), 'cm')) +
-  labs(y = "", legend = "Résultat", title = "Evaluations hors UICN",
-       caption = "*Ligurian and Tyrrhenian Seas") +
+  labs(y = "", legend = "Résultat", title = "Comparaison des évaluations tierces", subtitle = "OSPAR, CIEM, CICTA et CGPM",
+       caption = "*Mers Ligurienne et Tyrrhénienne") +
   guides(fill=guide_legend(title="Résultat")) +
-  facet_grid(.~ variable, scales = "free", space = "free", 
+  facet_grid(Status_FR ~ variable, scales = "free", space = "free", 
              labeller = labeller(variable = label_wrap_gen(width=10)))
 
 #export
-ggsave("figs\\Evaluations_hors_UICN.png", width = 16, height = 11, units = 'cm')
+ggsave("figs\\Evaluations_hors_UICN_v2.png", width = 16, height = 14, units = 'cm')
 ```
 
 # Présence dans les conventions
