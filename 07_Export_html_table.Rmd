@@ -1,0 +1,159 @@
+---
+title: "Export_html_tables"
+author: "Pauline"
+date: '2022-05-06'
+output: html_document
+---
+
+# Purpose
+This file exports the table formatted as html. This is an easy and visual way to present the data. It is also possible to store it online using gh-pages and to simply share the link. Tutorial on how this works : https://pokyah.github.io/post/r_interactive_datavis_with_github_pages/.
+
+
+```{r setup, include = F}
+library(tidyverse)
+library(reactablefmtr)
+
+#colours
+library(IUCNpalette)
+library(readxl)
+library(xlsx)
+IUCN_palette <- iucn_palette()
+IUCN_palette[1] <- "lightgray"
+IUCN_palette[8] <- "black"
+IUCN_palette[9] <- "lightskyblue"
+names_IUCN <- names(iucn_palettes)[1:8]
+
+#select species (take 'commentaire' to have outdated names as well)
+elasmo_FR <- read.csv("data\\elasmo_uicn_france.csv") %>% mutate(Genre = word(.$Species, 1))
+species_names <- c(elasmo_FR$Species, elasmo_FR$Species) %>% unique() %>% na.exclude()
+species_genre <- paste0(unique(elasmo_FR$Genre), " spp") %>% na.exclude()
+species_all <- c(species_names, species_genre)
+```
+
+# Load data
+```{r data}
+#df with names
+names_elasmo <- read_xlsx("data\\Elasmobranches_présents_FR.xlsx") %>% select(3:5)
+
+#final df
+Elasmo_with_OSPAR <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") %>% drop_na("Dernier statut") %>% select(-1) %>% select(-"Nom commun") %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce") %>% #problem with reading colnames
+  filter(Région != "Brazil" & Région != "Canada" & Région != "Venezuela")
+```
+
+## HTML final table
+```{r}
+#NAs as empty character for better vizualization
+Elasmo_with_OSPAR[is.na(Elasmo_with_OSPAR) == T] <- ""
+
+#source : https://stackoverflow.com/questions/65914989/conditional-formatting-multiple-columns-in-reactable
+#test
+iucn_cols <- function(x){
+  if(is.na(x) == T){""}
+  else if(x == "CR"){"red"}
+  else if(x == "EN") {"orange"}
+  else if (x == "VU") {"gold"}
+  else if (x == "NT") {"forestgreen"}
+  else if (x == "LC") {"lightgreen" }
+  else if(x == "DD") {"lightgrey"}
+  else if(x == "declining") {"sandybrown"}
+  else if(x == "stable"){"yellow"}
+  else if(x == "recovering"){"aquamarine"}
+  else if(x == "increasing"){"aquamarine"}
+  else if(x == "unknown"){"lightgrey"}
+  else if(x == "Good"){"lightgreen"}
+  else if(x == "Poor"){"sandybrown"}
+  else if(x == "Unknown"){"lightgrey"}
+  else if(x == "3"){"lightblue"}
+  else if(x == "NA"){"white"}
+  else if(x == "Not applicable"){"white"}
+  else if(x == "depleted"){"sandybrown"}
+  else if (x == "decreasing"){"sandybrown"}
+  else if(x == "very low"){"sandybrown"}
+  else{""}}
+
+stylefunc <- function(value, index, name) {
+  color <- iucn_cols(value)
+  list(background = color)
+}
+
+coldefs <- list(
+  reactable::colDef(style = stylefunc)
+)
+
+cols <- Elasmo_with_OSPAR %>% select("Dernier statut", 10:33) %>% colnames()
+
+#replicate list to required length
+coldefs <- rep(coldefs,length(cols))
+
+#name elements of list according to cols
+names(coldefs) <- cols
+
+#reactable package
+Elasmo_IUCN_html <- reactable(Elasmo_with_OSPAR,
+                  pagination = F, #all on one page
+                  filterable = T,
+                  showPageSizeOptions = T,
+                  onClick = "select", #select the row when you click
+                  highlight = T, #highlight the rows on hover
+                  striped = T, #strip rows
+                  columns = coldefs,
+                  defaultColDef = colDef(minWidth = 120)
+                )
+
+
+save_reactable_test(Elasmo_IUCN_html, "html_output/Résultats_OE_statuts.html")
+```
+
+# Convention tables
+```{r convention}
+appendices_html <- reactable(Appendices, 
+                             pagination = F, 
+                             highlight = T, 
+                             striped = T,
+                             filterable = T)
+save_reactable_test(appendices_html, "html_output/Appendices_html_table.html")
+```
+
+# OSPAR table
+```{r ospar}
+#create colors
+status_color <- Status_OSPAR %>% 
+  mutate(status_colors = dplyr::case_when(
+  Last_status == 'Poor' ~ 'tomato',
+  Last_status == 'Good' ~ 'forestgreen',
+  Last_status == '?' ~ 'dodgerblue'
+  ))
+
+
+#reactable package
+OSPAR_html <- reactable(status_color,
+                        pagination = F,
+                        highlight = T,
+                        filterable = T,
+                        striped = T,
+                        defaultSorted = 'Last_status',
+                        columns = list(
+                          Last_status = colDef(
+                            style = color_scales(status_color, color_ref = 'status_colors')),
+                            status_colors = colDef(show = FALSE)
+                          ))
+save_reactable_test(OSPAR_html, "html_output/OSPAR_html_table.html")
+```
+
+# ICES advice
+```{r ICES}
+#bind stock_cats and stock_advice
+ICES_advice <- left_join(ICES_advice, ICES_stock_cat, by = "Stock")
+
+#pivot to wide format
+ICES_wide <- ICES_advice %>% filter(Year %in% "2018":"2023") %>% pivot_wider(names_from = Year, values_from = Advice) %>% relocate(Stock, stock_category)
+
+#reactable package
+ICES_html <- reactable(ICES_wide,
+                        pagination = F,
+                        highlight = T,
+                        striped = T,
+                       filterable = T)
+
+save_reactable_test(ICES_html, "html_output/ICES_html_table.html")
+```

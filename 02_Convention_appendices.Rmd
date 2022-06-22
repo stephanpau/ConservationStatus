@@ -53,3 +53,5 @@ OegNiel_appendices <- OegNiel_conventions %>%
 
 write_excel_csv(OegNiel_appendices, file = "data/Species_cited_in_appendices.csv")
 ```
+
+Remarks : I added by hand in the excel table whether they were part of the RFMOs' (ICCAT and GFCM, fishing organisations) listings.

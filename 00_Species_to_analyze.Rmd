@@ -1,11 +1,11 @@
 ---
 title: "00_Species_to_analyze"
-author: "Pauline"
+author: "Pauline STEPHAN (MNHN)"
 date: '2022-05-20'
 output: html_document
 ---
 # Purpose
-This document is simply to load and check that the species' list doesn't contain errors.
+This document is simply to load and check that the species' list doesn't contain errors. This list will then be used throughout the data extraction / analysis.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

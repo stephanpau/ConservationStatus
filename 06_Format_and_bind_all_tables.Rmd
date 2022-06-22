@@ -1,0 +1,188 @@
+---
+title: "06_Format_and_bind_all_tables"
+author: "Pauline"
+date: '2022-06-22'
+output: html_document
+---
+
+# Purpose
+Before creating the html version of the final matrix, you need to bind all the tables produced in the previous scripts to have your final df. To do so, you need to format them (same column names, same column types, etc. etc.). This is what this document does.
+
+```{r setup, include = F}
+library(tidyverse)
+
+#select species (take 'commentaire' to have outdated names as well)
+elasmo_FR <- read.csv("data\\elasmo_uicn_france.csv") %>% mutate(Genre = word(.$Species, 1))
+species_names <- c(elasmo_FR$Species, elasmo_FR$Species) %>% unique() %>% na.exclude()
+species_genre <- paste0(unique(elasmo_FR$Genre), " spp") %>% na.exclude()
+species_all <- c(species_names, species_genre)
+```
+
+# Load and format data
+Logically, you load the documents produced at the very end of each script and stored in the data folder.
+
+## UICN historical table
+```{r data}
+#IUCN historical table
+Elasmobranchs_IUCN_historical_status <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8", check.names = F) %>% select(-"Before_last_evaluation", -"Before_last_status") %>% filter(Region != "Brazil" & Region != "Canada" & Region != "Venezuela")
+```
+
+
+## Conventions
+```{r}
+Appendices <- read.csv("data\\Species_cited_in_appendices.csv", check.names = F, sep = ";") %>% 
+  na_if("NA") %>% na_if(NA) %>% na_if("")
+
+#Appendices table to long format
+Appendices[Appendices == "X"] <- " "
+
+Appendices_long <- Appendices %>% select(-CITES_listing_year) %>%
+  rename(Berne = BERN_appendix, Barcelone = Barcelona_appendix, Washington = CITES_appendix, Bonn = CMS_appendix,
+         Espèce = "ï»¿Species") %>%
+  mutate_all(as.character) %>%
+  pivot_longer(cols = "Berne" : OSPAR, names_to = "conventions", values_to = "Détail", values_drop_na = T) %>%
+  unite(conventions:"Détail", col = conventions, remove = TRUE, sep = " ", na.rm = T) %>%
+  pivot_wider(values_from = "conventions", names_from = "conventions") %>% #group by wasn't working
+  unite("Washington II" : "Washington I", col = Conventions, remove = T, sep = ", ", na.rm = T)
+```
+
+## OSPAR
+```{r}
+#OSPAR Status
+##POSH
+Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", encoding = "UTF-8", check.names = F, sep = ";") #to have symbols
+
+##FC1 --Got this one from the DCSMM team in the Museum, it hasn't been published yet
+FC1_OSPAR <- readxl::read_xlsx("data\\FC1_integrated_outcomes.xlsx")
+
+#Add OSPAR status for french waters (II to IV)
+POSH <- Status_OSPAR %>% filter(Region %in% c("II", "III", "IV")) %>%
+  mutate(Region = paste0("OSPAR ", Region, "(POSH)"), "2021" = Last_status) %>% 
+  rename("Dernier statut" = Last_status, "Dernière évaluation" = Year, "Espèce" = Species, "Région" = Region) %>%
+  select(-Previous_status, -Common_name) %>%
+  mutate(Niveau = "Régional") %>%
+  mutate_all(as.character) %>%
+  left_join(., elasmo_binding)
+  
+
+#FC1
+FC1 <- FC1_OSPAR %>% filter(species %in% species_names) %>% filter(variable == "Long") %>% #keep only long term trend
+  mutate(msfd.region = case_when(
+    msfd.region == "BBIC" ~ "OSPAR IV (FC1)",
+    msfd.region == "GNS" ~ "OSPAR II (FC1)",
+    msfd.region == "CS" ~ "OSPAR III (FC1)"
+  )) %>%
+  mutate("2022" = bi.res) %>%
+  rename("Espèce" = species, "Région" = msfd.region, "Dernier statut" = bi.res) %>% 
+  select(Espèce, Région, "Dernier statut", "2022") %>%
+  mutate(Niveau = "Régional", "Dernière évaluation" = "2022") %>%
+  mutate_all(as.character) %>%
+  left_join(., elasmo_binding)
+```
+
+## ICES
+```{r}
+#ICES
+ICES_stock_cat <- read.csv("data\\ICES_stock_categories.csv", encoding = "UTF-8", check.names = F) %>% select(-1) %>%
+  rename(Stock = stock)#drop id col
+ICES_advice <- read.csv("data\\ICES_advice_history.csv", encoding = "UTF-8", check.names = F) %>% select(-1) #drop 1st id col
+
+#add cIEM
+ICES <- read_xlsx("data\\ICES_qualitative_stock_eval.xlsx") %>% rename("Espèce" = Species) %>% select(-"Eco Region") %>%
+  mutate(Région = case_when(
+    Region == "NE Atlantic" ~ "CIEM : Atlantique NE",
+    Region == "GNS" ~ "CIEM : Mer du Nord",
+    Region == "CS (North)" ~ "CIEM : Mers celtiques (Nord)",
+    Region == "CS (South)" ~ "CIEM : Mers celtiques (Sud)",
+    Region == "BBIC (North)" ~ "CIEM : Golfe de Gascogne (Nord)",
+    Region == "BBIC (South)" ~ "CIEM : Golfe de Gascogne (Sud)",
+    Region == "CS" ~ "CIEM : Mers celtiques"
+  ),
+  Niveau = "Régional",
+  "Dernier statut" = ifelse(is.na(`2019`), `2018`, `2019`)) %>% select(-Region, -Stock) %>%
+  mutate_all(as.character) %>%
+  full_join(., Appendices_long) %>% 
+  relocate("Conventions", .after = "Espèce") %>% mutate(across(everything(), as.character)) %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce")
+
+ICES[ICES == "inc"] <- "increasing"
+ICES[ICES == "dec"] <- "decreasing"
+```
+
+## RFMOs
+```{r}
+#add ices and iccat
+ICCAT_GFCM <- read.csv("data\\Status_ICCAT_GFCM.csv", sep = ";") %>%
+  mutate("Dernière évaluation" = Year, "Dernier statut" = Last_status) %>%
+  pivot_wider(values_from = Last_status, names_from = Year) %>%
+  mutate("Région" = case_when(
+    Region == "NE Atlantic" ~ "CICTA : Atlantique NE",
+    Region == "Ligurian and Tyrrhenian Seas" ~ "CGPM : Méditerranée (Ligurienne et Tyrrhenienne)" 
+  ),
+  Niveau = "Régional") %>%
+  rename("Espèce" = Species) %>%
+  select(-Region, -variable) %>%
+  mutate_all(as.character) %>%
+  full_join(., Appendices_long) %>% 
+  relocate("Conventions", .after = "Espèce") %>% mutate(across(everything(), as.character)) %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce")
+```
+
+# Bind all together
+```{r}
+
+```
+
+# Translate to French
+
+# Elasmo historical table
+```{r display_iucn}
+#need to convert all to character
+Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% mutate(across(everything(), as.character)) %>%
+  relocate(Last_status, .after = Region)
+
+#translate
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Baltic Sea"] <- "Baltique"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Mediterranean Sea"] <- "Méditerranée"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Croatia"] <- "Croatie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Italy"] <- "Italie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Ireland"] <- "Irlande"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Sweden"] <- "Suède"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Norway"] <- "Norvège"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Albania"] <- "Albanie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Germany"] <- "Allemagne"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "United Kingdom"] <- "Royaume-Uni"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "NE Atlantic"] <- "Atlantique NE"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
+Elasmobranchs_IUCN_historical_status$Level[Elasmobranchs_IUCN_historical_status$Level == "Regional"] <- "Régional"
+
+#Translate the column names to french
+Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% 
+  rename(Espèce = 1,
+         `Nom commun` = Nom.commun,
+         Niveau = Level,
+         Région = Region,
+         `Dernier statut` = Last_status,
+         `Evolution du statut` = Status_evolution,
+         `Années écoulées` = Years_apart,
+         `Dernière évaluation` = Last_evaluation)
+
+Elasmobranchs_IUCN_historical_status <- left_join(Elasmobranchs_IUCN_historical_status, Appendices_long) %>% 
+  relocate("Conventions", .after = "Nom commun") %>% mutate(across(everything(), as.character))
+
+#elasmo to bind
+elasmo_binding <- Elasmobranchs_IUCN_historical_status %>% select(Espèce, "Nom commun", "Conventions") %>% unique()
+
+Elasmo_with_OSPAR <- full_join(Elasmobranchs_IUCN_historical_status, FC1) %>% full_join(., POSH)
+  
+#bind with elasmo
+Elasmo_with_OSPAR <- full_join(Elasmo_with_OSPAR, ICCAT_GFCM) %>% dplyr::filter(!grepl("CIEM",Région))
+Elasmo_with_OSPAR <- Elasmo_with_OSPAR %>% dplyr::filter(!grepl("CIEM",Région))
+
+#bind with elasmo
+Elasmo_with_OSPAR <- full_join(Elasmo_with_OSPAR, ICES) %>% mutate_all(as.character)
+
+#export the final table
+write.xlsx(Elasmo_with_OSPAR, "data\\Elasmo_final_table_with_OSPAR.xlsx", showNA = F, col.names = T)
+```
+
+

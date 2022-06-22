@@ -1,6 +1,6 @@
 ---
 title: "IUCN_status"
-author: "Pauline"
+author: "Pauline STEPHAN (MNHN)"
 date: '2022-05-05'
 output: html_document
 ---

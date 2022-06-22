@@ -196,3 +196,5 @@ ICES_advice_history <- write.csv(ICES_advice, file ="data\\ICES_advice_history.c
 
 #also need to correct for the stocks whose history of advice was splitted on two pages --> the year values will stop earlier than 2020 for instance
 ```
+
+Remarks : I extracted the qualitative status by hand, I think in the end it's more efficient than trying to make the loop work.
