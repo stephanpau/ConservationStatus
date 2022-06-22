@@ -12,6 +12,7 @@ library(reactablefmtr)
 #colours
 library(IUCNpalette)
 library(readxl)
+library(xlsx)
 IUCN_palette <- iucn_palette()
 IUCN_palette[1] <- "lightgray"
 IUCN_palette[8] <- "black"
@@ -130,12 +131,64 @@ FC1 <- FC1_OSPAR %>% filter(species %in% species_names) %>% filter(variable == "
 
 Elasmo_with_OSPAR <- full_join(Elasmobranchs_IUCN_historical_status, FC1) %>% full_join(., POSH)
 
+#add ices and iccat
+ICCAT_GFCM <- read.csv("data\\Status_ICCAT_GFCM.csv", sep = ";") %>%
+  mutate("Dernière évaluation" = Year, "Dernier statut" = Last_status) %>%
+  pivot_wider(values_from = Last_status, names_from = Year) %>%
+  mutate("Région" = case_when(
+    Region == "NE Atlantic" ~ "CICTA : Atlantique NE",
+    Region == "Ligurian and Tyrrhenian Seas" ~ "CGPM : Méditerranée (Ligurienne et Tyrrhenienne)" 
+  ),
+  Niveau = "Régional") %>%
+  rename("Espèce" = Species) %>%
+  select(-Region, -variable) %>%
+  mutate_all(as.character) %>%
+  full_join(., Appendices_long) %>% 
+  relocate("Conventions", .after = "Espèce") %>% mutate(across(everything(), as.character)) %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce")
+  
+#bind with elasmo
+Elasmo_with_OSPAR <- full_join(Elasmo_with_OSPAR, ICCAT_GFCM) %>% dplyr::filter(!grepl("CIEM",Région))
+Elasmo_with_OSPAR <- Elasmo_with_OSPAR %>% dplyr::filter(!grepl("CIEM",Région))
+
+#add cIEM
+ICES <- read_xlsx("data\\ICES_qualitative_stock_eval.xlsx") %>% rename("Espèce" = Species) %>% select(-"Eco Region") %>%
+  mutate(Région = case_when(
+    Region == "NE Atlantic" ~ "CIEM : Atlantique NE",
+    Region == "GNS" ~ "CIEM : Mer du Nord",
+    Region == "CS (North)" ~ "CIEM : Mers celtiques (Nord)",
+    Region == "CS (South)" ~ "CIEM : Mers celtiques (Sud)",
+    Region == "BBIC (North)" ~ "CIEM : Golfe de Gascogne (Nord)",
+    Region == "BBIC (South)" ~ "CIEM : Golfe de Gascogne (Sud)",
+    Region == "CS" ~ "CIEM : Mers celtiques"
+  ),
+  Niveau = "Régional",
+  "Dernier statut" = ifelse(is.na(`2019`), `2018`, `2019`)) %>% select(-Region, -Stock) %>%
+  mutate_all(as.character) %>%
+  full_join(., Appendices_long) %>% 
+  relocate("Conventions", .after = "Espèce") %>% mutate(across(everything(), as.character)) %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce")
+
+
+ICES[ICES == "inc"] <- "increasing"
+ICES[ICES == "dec"] <- "decreasing"
+
+#bind with elasmo
+Elasmo_with_OSPAR <- full_join(Elasmo_with_OSPAR, ICES) %>% mutate_all(as.character)
+
+#export
 write.xlsx(Elasmo_with_OSPAR, "data\\Elasmo_final_table_with_OSPAR.xlsx", showNA = F, col.names = T)
 ```
 
 ## HTML final table
 ```{r}
-Elasmo_with_OSPAR <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") %>% drop_na("Dernier statut") %>% select(-1)
+#df with names
+names_elasmo <- read_xlsx("data\\Elasmobranches_présents_FR.xlsx") %>% select(3:5)
+
+#final df
+Elasmo_with_OSPAR <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") %>% drop_na("Dernier statut") %>% select(-1) %>% select(-"Nom commun") %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce") %>% #problem with reading colnames
+  filter(Région != "Brazil" & Région != "Canada" & Région != "Venezuela")
+
+
+#NAs as empty character for better vizualization
 Elasmo_with_OSPAR[is.na(Elasmo_with_OSPAR) == T] <- ""
 
 #source : https://stackoverflow.com/questions/65914989/conditional-formatting-multiple-columns-in-reactable
@@ -148,16 +201,20 @@ iucn_cols <- function(x){
   else if (x == "NT") {"forestgreen"}
   else if (x == "LC") {"lightgreen" }
   else if(x == "DD") {"lightgrey"}
-  else if(x == "declining") {"mediumvioletred"}
-  else if(x == "stable"){"sandybrown"}
+  else if(x == "declining") {"sandybrown"}
+  else if(x == "stable"){"yellow"}
   else if(x == "recovering"){"aquamarine"}
+  else if(x == "increasing"){"aquamarine"}
   else if(x == "unknown"){"lightgrey"}
   else if(x == "Good"){"lightgreen"}
-  else if(x == "Poor"){"orange"}
+  else if(x == "Poor"){"sandybrown"}
   else if(x == "Unknown"){"lightgrey"}
   else if(x == "3"){"lightblue"}
   else if(x == "NA"){"white"}
   else if(x == "Not applicable"){"white"}
+  else if(x == "depleted"){"sandybrown"}
+  else if (x == "decreasing"){"sandybrown"}
+  else if(x == "very low"){"sandybrown"}
   else{""}}
 
 stylefunc <- function(value, index, name) {
@@ -185,7 +242,8 @@ Elasmo_IUCN_html <- reactable(Elasmo_with_OSPAR,
                   onClick = "select", #select the row when you click
                   highlight = T, #highlight the rows on hover
                   striped = T, #strip rows
-                  columns = coldefs
+                  columns = coldefs,
+                  defaultColDef = colDef(minWidth = 120)
                 )
 
 

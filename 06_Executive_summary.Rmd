@@ -593,6 +593,8 @@ ICES <- ICES_qualitative %>%
 #bind
 FC1_POSH_ICCAT_ICES <- full_join(FC1_POSH_ICCAT, ICES)
 
+write_xlsx(FC1_POSH_ICCAT_ICES, "data\\FC1_POSH_ICCAT_ICES.xlsx")
+
 FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "Ligurian and Tyrrhenian Seas"] <- "Med.*"
 FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "Dec"] <- "Declining"
 FC1_POSH_ICCAT_ICES[FC1_POSH_ICCAT_ICES == "Inc"] <- "Recovering"
@@ -649,37 +651,44 @@ Appendices <- Appendices %>% select(-CITES_listing_year)
 # Compter le nombre de statuts défavorables et le nombre de statuts favorables (med VS atl)
 ```{r}
 Priority_IUCN <- Status_IUCN %>% filter(Region != "France") %>% 
-  left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France")]) %>% 
+  left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France", "Groupe")]) %>% 
+  filter(Groupe != "Chimères") %>%
   rename(Status_FR = Cat_liste.rouge.France) %>%
   mutate_all(as.character) %>%
   mutate(Region = as.character(Region)) %>%
-  select(Status_FR, Species, Nom.commun, Region, Last_status, Status_evolution) %>%
+  select(Status_FR, Groupe, Species, Nom.commun, Region, Last_status, Status_evolution) %>%
   mutate(Façade = case_when(
     Region == "Italy" | Region == "Croatia" | Region == "Albania" | Region == "Mediterranean Sea" ~ "Méditerranée",
-    Region == "NE Atlantic" | Region == "Norway" | Region == "Sweden" | 
-      Region == "United Kingdom" | Region == "Germany" | Region == "Ireland" | Region == "Baltic Sea" ~ "Atlantique")) %>%
+    Region == "NE Atlantic" | Region == "United Kingdom" |  Region == "Ireland" ~ "Atlantique NE",
+    Region == "Norway" | Region == "Germany" ~ "Manche / Mer du Nord",
+    Region == "Baltic Sea" | Region == "Sweden" ~ "Baltique"
+    )) %>%
   drop_na(Façade) %>%
-  group_by(Façade, Species, Nom.commun, Status_FR) %>%
-  summarise(Nb.VU.EN.CR = sum(Last_status == "EN" |
-                                Last_status == "CR" |
+  group_by(Façade, Groupe, Species, Nom.commun, Status_FR) %>%
+  summarise(Nb.CR = sum(Last_status == "CR", na.rm = T),
+            Nb.VU.EN = sum(Last_status == "EN" |
                                 Last_status == "VU" |
                                 Last_status == "3", na.rm = T),
             Nb.NT.LC = sum(Last_status == "NT" |
                              Last_status == "LC", na.rm = T),
             Nb.baisse = sum(Status_evolution == "EN-CR" |
-                              Status_evolution == "VU-CR" |
+                            Status_evolution == "VU-CR" |
                             Status_evolution == "NT-CR" |
                             Status_evolution == "VU-EN" |
                               Status_evolution == "NT-EN" |
                               Status_evolution == "LC-EN" |
-                              Status_evolution == "NT-VU" | Status_evolution == "LC-VU",  na.rm = T),
+                              Status_evolution == "NT-VU" | 
+                              Status_evolution == "LC-VU",  na.rm = T),
             Nb.stable = sum(Status_evolution == "CR-CR" |
                               Status_evolution == "EN-EN" |
                               Status_evolution == "VU-VU" |
                               Status_evolution == "NT-NT" | 
-                            Status_evolution == "LC-LC", na.rm = T))
+                            Status_evolution == "LC-LC", na.rm = T)) %>%
+  arrange(Façade, Groupe, desc(Nb.CR), desc(Nb.VU.EN), Species)
+
 #export
-write_xlsx(Priority_IUCN, "data\\Priority_IUCN.xlsx")
+write_xlsx(Priority_IUCN, "data\\Priority_IUCN_v3.xlsx")
+
 nb.vu.en.nt <-  Status_IUCN %>% filter(Region != "France") %>% 
   left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France")]) %>% 
   rename(Status_FR = Cat_liste.rouge.France) %>%
