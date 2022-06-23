@@ -37,10 +37,40 @@ names_elasmo <- read_xlsx("data\\Elasmobranches_présents_FR.xlsx") %>% select(3
 
 #final df
 Elasmo_with_OSPAR <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") %>% drop_na("Dernier statut") %>% select(-1) %>% select(-"Nom commun") %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce") %>% #problem with reading colnames
-  filter(Région != "Brazil" & Région != "Canada" & Région != "Venezuela")
 ```
 
-## HTML final table
+# Translate to French
+```{r}
+#translate
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Baltic Sea"] <- "Baltique"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Mediterranean Sea"] <- "Méditerranée"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Croatia"] <- "Croatie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Italy"] <- "Italie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Ireland"] <- "Irlande"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Sweden"] <- "Suède"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Norway"] <- "Norvège"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Albania"] <- "Albanie"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Germany"] <- "Allemagne"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "United Kingdom"] <- "Royaume-Uni"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "NE Atlantic"] <- "Atlantique NE"
+Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
+Elasmobranchs_IUCN_historical_status$Level[Elasmobranchs_IUCN_historical_status$Level == "Regional"] <- "Régional"
+
+#Translate the column names to french
+Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% 
+  rename(Espèce = 1,
+         `Nom commun` = Nom.commun,
+         Niveau = Level,
+         Région = Region,
+         `Dernier statut` = Last_status,
+         `Evolution du statut` = Status_evolution,
+         `Années écoulées` = Years_apart,
+         `Dernière évaluation` = Last_evaluation)
+```
+
+
+# HTML final table
 ```{r}
 #NAs as empty character for better vizualization
 Elasmo_with_OSPAR[is.na(Elasmo_with_OSPAR) == T] <- ""

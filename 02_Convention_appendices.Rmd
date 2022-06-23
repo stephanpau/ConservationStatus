@@ -34,12 +34,15 @@ library(knitr)
 #elasmo_fr
 elasmo_FR <- read.csv("data\\elasmo_uicn_france.csv")
 
-#list of species names for looping later on
+#list of species names
 species_names <- elasmo_FR$Species
+
+#file with the corrected common names, used at the end of the doc for adding the common names
+names_elasmo <- read_xlsx("data/Elasmobranches_présents_FR.xlsx") %>% rename(Species = Espèce, Name_FR = "Nom commun", Name_EN = "Nom anglais")
 
 #oegelund nielsen's database
 OegNiel_conventions <- read_excel("data/oegelund_nielsen_data.xlsx") %>% filter(Species %in% species_names) %>%
-  select(Species,Common_name_FB, 11:20) %>% rename(Common_name = Common_name_FB) %>%
+  select(Species, 11:20) %>%
   na_if("NA") %>% na_if(0) #for easier filtering after
 ```
 
@@ -47,10 +50,12 @@ OegNiel_conventions <- read_excel("data/oegelund_nielsen_data.xlsx") %>% filter(
 32 species are present in at least one appendix of Bern, Barcelona, CITES, Bonne
 ```{r appendices}
 #only CITES has a listing year
-OegNiel_appendices <- OegNiel_conventions %>% 
-  select(Species, BERN_appendix, Barcelona_appendix, CITES_appendix, CITES_listing_year, CMS_appendix) %>%
-  filter_at(vars(2:6),any_vars(!is.na(.))) #keep only species that are present in at least one appendix
+OegNiel_appendices <- OegNiel_conventions %>%
+  filter_at(vars(2:length(.)), any_vars(!is.na(.))) %>% #keep only species that are present in at least one appendix
+  left_join(., names_elasmo[c("Species", "Name_FR", "Name_EN")], by = "Species") %>% #add common names
+  relocate(c("Name_FR", "Name_EN"), .after = Species)
 
+#export
 write_excel_csv(OegNiel_appendices, file = "data/Species_cited_in_appendices.csv")
 ```
 

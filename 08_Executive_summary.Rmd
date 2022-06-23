@@ -8,11 +8,14 @@ output: html_document
 Purpose : produce figures and tables for a document summarizing the outcomes.
 
 ```{r setup, include = F}
+#Genera
 library(tidyverse)
 library(readxl)
 library(writexl)
+
 #plotting
 library(ggsankey)
+
 #colours
 library(IUCNpalette)
 IUCN_palette <- iucn_palette()
@@ -27,10 +30,12 @@ palette <- brewer.pal(n = 8, name = "Dark2") #%>% c(., brewer.pal(n = 12, name =
 ```
 
 # 1. Load data
+Load the files produced int he previous scripts.
 ```{r load_data, echo = F}
 #french elasmos
 elasmo_FR <- read.csv("data\\elasmo_uicn_france.csv") %>% as_tibble() %>% rename(Species = 'Species')
 species_names <- elasmo_FR$Species
+
 #IUCN_status
 Status_IUCN <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8", check.names = F) %>% 
   rename(Species = 1) %>% #problem with reading colnames...
@@ -67,10 +72,6 @@ ICCAT_GFCM <- read.csv("data\\Status_ICCAT_GFCM.csv", sep = ";") %>% mutate(vari
 
 #ICES
 ICES_advice <- read_xlsx("data\\ICES_advice_history_updated.xlsx") %>% rename(Species = 'Species')
-ICES_qualitative <- ICES_advice %>% filter(is.na(Stock_size_qualitative) == F) %>% select(Species, Stock_size_qualitative, Stock, "Eco Region", Year) %>%
-  pivot_wider(names_from = Year, values_from = Stock_size_qualitative) %>%
-  relocate(Stock, .before = Species)
-
 ICES_qualitative <- read_xlsx("data\\ICES_qualitative_stock_eval.xlsx")
 #export
 #write_xlsx(ICES_qualitative, "data\\ICES_qualitative_stock_eval.xlsx")
@@ -131,9 +132,9 @@ IUCN_colors[8] <- "lightblue"
  ggsave("figs\\UICN_FR_barchart.png", width = 10, height = 6)
 ```
 
-# 4. Résumé des status
+# 4.IUCN : status summaries
 ## 4.1 Temporal evolution IUCN
-```{r load_iucn, echo = FALSE}
+```{r  load_iucn, echo = FALSE}
 #add group and family
 Status_IUCN <- left_join(Status_IUCN, elasmo_FR[c("Species", "Groupe", "Family")], by = "Species") %>% relocate(c("Groupe", "Family"), .after = "Nom.commun") 
 #transform

@@ -55,6 +55,9 @@ The data "french list IUCN" is available on the french IUCN website
 #French list IUCN
 ##rename nom scientifique to species. Attention : here I already corrected some mispelled are not up-to-date species' names. I spotted them during first runs and changed them by hand. I kept the original names in the "FR_species" column.
 elasmo_FR <- read.csv("data/elasmo_uicn_france.csv")
+
+#file with the corrected common names, used at the end of the doc for adding the common names
+names_elasmo <- read_xlsx("data/Elasmobranches_présents_FR.xlsx") %>% rename(Species = Espèce, Name_FR = "Nom commun", Name_EN = "Nom anglais")
 ```
 
 # IUCN API to extract information from the redlist.org website
@@ -170,10 +173,11 @@ IUCN_zsl <- read_xlsx("data/ZSL_IUCN_completed.xlsx")  %>% filter(Species %in% s
 #convert the value to bind with french list and avoid duplicated rows
 IUCN_zsl[IUCN_zsl == "France (continental)"] <- "France"
 
-#There is a problem with the ifelse for the Med Sea, correct by hand
+#There is a problem with the ifelse, correct by hand
 IUCN_zsl[IUCN_zsl == "Mediterranean Sea"] <- "Mediterranean Sea"
 IUCN_zsl$Level[IUCN_zsl$Region == "Mediterranean Sea"] <- "Regional"
 IUCN_zsl$Level[IUCN_zsl$Region == "NE Atlantic"] <- "Regional"
+IUCN_zsl$Level[IUCN_zsl$Region == "Baltic Sea"] <- "Regional"
 ```
 
 ## IUCN France
@@ -237,7 +241,7 @@ IUCN_all <- left_join(IUCN_all, IUCN_trend, by = c("Species", "Level", "Region")
   relocate(c("Status_evolution", "Years_apart", "Last_status", "Before_last_status", "Last_evaluation", "Before_last_evaluation"), .after = Level)
 ```
 
-## Pivot to wider format (years as columns with status as values) and export df
+## Pivot to wider format (years as columns with status as values), final formatting and export df
 ```{r wide}
 #pivot to
 Elasmobranchs_IUCN_historical_status <- IUCN_all %>%
@@ -246,7 +250,9 @@ Elasmobranchs_IUCN_historical_status <- IUCN_all %>%
   select(order(colnames(.))) %>% #order the columns by increasing order
   relocate(c("Species", "Level", "Region", "Status_evolution", "Years_apart", "Last_status", "Last_evaluation")) %>% #put species first
   arrange(Species, Level, Region) %>% #sort species and level alphabetically
-  left_join(., elasmo_FR[c("Species", "Nom.commun")], by = "Species") %>% relocate("Nom.commun", .after = "Species") #add french name
+  left_join(., names_elasmo[c("Species", "Name_FR", "Name_EN")], by = "Species") %>% 
+  relocate(c("Name_FR", "Name_EN"), .after = "Species") %>% #add french name
+  filter(Region != "Brazil" & Region != "Canada" & Region != "Venezuela") #remove far away countries (that come from ZSL)
 
 #Export file as excel
 write_excel_csv(Elasmobranchs_IUCN_historical_status, file = "data\\Elasmobranchs_IUCN_historical_status.csv")

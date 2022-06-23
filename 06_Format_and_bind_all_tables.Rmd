@@ -87,6 +87,11 @@ ICES_stock_cat <- read.csv("data\\ICES_stock_categories.csv", encoding = "UTF-8"
   rename(Stock = stock)#drop id col
 ICES_advice <- read.csv("data\\ICES_advice_history.csv", encoding = "UTF-8", check.names = F) %>% select(-1) #drop 1st id col
 
+#need to have this somewhere 
+ICES_qualitative <- ICES_advice %>% filter(is.na(Stock_size_qualitative) == F) %>% select(Species, Stock_size_qualitative, Stock, "Eco Region", Year) %>%
+  pivot_wider(names_from = Year, values_from = Stock_size_qualitative) %>%
+  relocate(Stock, .before = Species)
+
 #add cIEM
 ICES <- read_xlsx("data\\ICES_qualitative_stock_eval.xlsx") %>% rename("Espèce" = Species) %>% select(-"Eco Region") %>%
   mutate(Région = case_when(
@@ -128,43 +133,10 @@ ICCAT_GFCM <- read.csv("data\\Status_ICCAT_GFCM.csv", sep = ";") %>%
 
 # Bind all together
 ```{r}
-
-```
-
-# Translate to French
-
-# Elasmo historical table
-```{r display_iucn}
 #need to convert all to character
 Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% mutate(across(everything(), as.character)) %>%
   relocate(Last_status, .after = Region)
 
-#translate
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Baltic Sea"] <- "Baltique"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Mediterranean Sea"] <- "Méditerranée"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Croatia"] <- "Croatie"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Italy"] <- "Italie"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Ireland"] <- "Irlande"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Sweden"] <- "Suède"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Norway"] <- "Norvège"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Albania"] <- "Albanie"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Germany"] <- "Allemagne"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "United Kingdom"] <- "Royaume-Uni"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "NE Atlantic"] <- "Atlantique NE"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
-Elasmobranchs_IUCN_historical_status$Level[Elasmobranchs_IUCN_historical_status$Level == "Regional"] <- "Régional"
-
-#Translate the column names to french
-Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% 
-  rename(Espèce = 1,
-         `Nom commun` = Nom.commun,
-         Niveau = Level,
-         Région = Region,
-         `Dernier statut` = Last_status,
-         `Evolution du statut` = Status_evolution,
-         `Années écoulées` = Years_apart,
-         `Dernière évaluation` = Last_evaluation)
 
 Elasmobranchs_IUCN_historical_status <- left_join(Elasmobranchs_IUCN_historical_status, Appendices_long) %>% 
   relocate("Conventions", .after = "Nom commun") %>% mutate(across(everything(), as.character))
@@ -184,5 +156,3 @@ Elasmo_with_OSPAR <- full_join(Elasmo_with_OSPAR, ICES) %>% mutate_all(as.charac
 #export the final table
 write.xlsx(Elasmo_with_OSPAR, "data\\Elasmo_final_table_with_OSPAR.xlsx", showNA = F, col.names = T)
 ```
-
-
