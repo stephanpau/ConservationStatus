@@ -16,7 +16,6 @@ library(reactablefmtr)
 #colours
 library(IUCNpalette)
 library(readxl)
-library(xlsx)
 IUCN_palette <- iucn_palette()
 IUCN_palette[1] <- "lightgray"
 IUCN_palette[8] <- "black"
@@ -36,35 +35,65 @@ species_all <- c(species_names, species_genre)
 names_elasmo <- read_xlsx("data\\Elasmobranches_présents_FR.xlsx") %>% select(3:5)
 
 #final df
-Elasmo_with_OSPAR <- read_xlsx("data\\Elasmo_final_table_with_OSPAR.xlsx") %>% drop_na("Dernier statut") %>% select(-1) %>% select(-"Nom commun") %>% left_join(.,names_elasmo) %>% relocate(c("Nom commun", "Nom anglais"), .after = "Espèce") %>% #problem with reading colnames
+Elasmo <- read_xlsx("data\\Elasmobranchs_final_table.xlsx")
 ```
 
 # Translate to French
 ```{r}
 #translate
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Baltic Sea"] <- "Baltique"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Mediterranean Sea"] <- "Méditerranée"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Croatia"] <- "Croatie"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Italy"] <- "Italie"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Ireland"] <- "Irlande"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Sweden"] <- "Suède"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Norway"] <- "Norvège"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Albania"] <- "Albanie"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "Germany"] <- "Allemagne"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "United Kingdom"] <- "Royaume-Uni"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "NE Atlantic"] <- "Atlantique NE"
-Elasmobranchs_IUCN_historical_status$Region[Elasmobranchs_IUCN_historical_status$Region == "World"] <- "Monde"
-Elasmobranchs_IUCN_historical_status$Level[Elasmobranchs_IUCN_historical_status$Level == "Regional"] <- "Régional"
+unique(Elasmo$Region)
 
-#Translate the column names to french
-Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>% 
-  rename(Espèce = 1,
-         `Nom commun` = Nom.commun,
-         Niveau = Level,
-         Région = Region,
+Elasmo <- Elasmo %>%
+    select(-Before_last_evaluation, -Before_last_status) %>% #remove those cols
+  mutate(Region = case_when(
+    #UICN
+    Region == "Baltic Sea" ~ "Baltique",
+    Region == "Mediterranean Sea" ~ "Méditerranée",
+    Region == "Croatia" ~ "Croatie",
+    Region == "Italy" ~ "Italie",
+    Region == "Ireland" ~ "Irlande",
+    Region == "World" ~ "Monde",
+    Region == "Sweden" ~ "Suède",
+    Region == "Norway" ~"Norvège",
+    Region == "Albania" ~ "Albanie",
+    Region == "Germany" ~ "Allemagne",
+    Region == "United Kingdom" ~ "Royaume-Uni",
+    Region == "NE Atlantic" ~ "Atlantique NE",
+    Region == "Europe" ~ "Europe",
+    Region == "France" ~ "France",
+    
+    #other evals
+    #OSPAR
+    Region == "OSPAR IV - BBIC (POSH)" ~ "OSPAR IV - Golfe de Gascogne (POSH)",
+    Region == "OSPAR III - CS (POSH)" ~ "OSPAR III - Mers celtiques (POSH)",
+    Region == "OSPAR II - GNS (POSH)" ~ "OSPAR II - Mer du Nord (POSH)",
+    Region == "OSPAR IV - BBIC (FC1)" ~ "OSPAR IV - Golfe de Gascogne (FC1)",
+    Region == "OSPAR III - CS (FC1)" ~ "OSPAR III - Mers celtiques (FC1)",
+    Region == "OSPAR II - GNS (FC1)" ~ "OSPAR II - Mer du Nord (FC1)",
+    
+    #ICES
+    Region == "CS (ICES)" ~ "Mers celtiques (CIEM)",
+    Region == "Northern BBIC (ICES)" ~ "Golfe de Gascogne Nord (CIEM)",
+    Region == "Southern BBIC (ICES)" ~ "Golfe de Gascogne Sud (CIEM)",
+    Region == "Northern CS (ICES)" ~ "Mers celtiques Nord (CIEM)",
+    Region == "Southern CS (ICES)" ~ "Mers celtiques Sud (CIEM)",
+    Region == "NE Atlantic (ICES)" ~ "Atlantique NE (CIEM)",
+    Region == "GNS (ICES)" ~ "Mer du Nord (CIEM)",
+    
+    #RFMOs
+    Region == "Ligurian and Tyrrhenian Seas (GFCM)" ~ "Mers Ligurienne et Tyrrhénienne (CGPM)",
+    Region == "NE Atlantic (ICCAT)" ~ "Atlantique NE (CICTA)"
+  )) %>%
+  mutate(Level = ifelse(Level == "Regional", "Régional", Level)) %>% 
+  
+  #rename columns
+  rename(Espèce = Species,
+         `Nom commun` = Name_FR,
+         `Nom anglais` = Name_EN,
+         `Echelle d'évaluation` = Level,
+         `Zone / pays évalué(e)` = Region,
          `Dernier statut` = Last_status,
-         `Evolution du statut` = Status_evolution,
+         `Tendance du statut` = Status_evolution,
          `Années écoulées` = Years_apart,
          `Dernière évaluation` = Last_evaluation)
 ```
@@ -73,32 +102,32 @@ Elasmobranchs_IUCN_historical_status <- Elasmobranchs_IUCN_historical_status %>%
 # HTML final table
 ```{r}
 #NAs as empty character for better vizualization
-Elasmo_with_OSPAR[is.na(Elasmo_with_OSPAR) == T] <- ""
+Elasmo[is.na(Elasmo) == T] <- ""
 
 #source : https://stackoverflow.com/questions/65914989/conditional-formatting-multiple-columns-in-reactable
 #test
 iucn_cols <- function(x){
   if(is.na(x) == T){""}
+  else if(x == "RE"){"darkred"}
   else if(x == "CR"){"red"}
   else if(x == "EN") {"orange"}
   else if (x == "VU") {"gold"}
   else if (x == "NT") {"forestgreen"}
   else if (x == "LC") {"lightgreen" }
   else if(x == "DD") {"lightgrey"}
-  else if(x == "declining") {"sandybrown"}
-  else if(x == "stable"){"yellow"}
-  else if(x == "recovering"){"aquamarine"}
-  else if(x == "increasing"){"aquamarine"}
-  else if(x == "unknown"){"lightgrey"}
+  else if(x == "Declining") {"sandybrown"}
+  else if(x == "Stable"){"yellow"}
+  else if(x == "Recovering"){"aquamarine"}
+  else if(x == "Increasing"){"aquamarine"}
+  else if(x == "Unknown"){"lightgrey"}
   else if(x == "Good"){"lightgreen"}
   else if(x == "Poor"){"sandybrown"}
-  else if(x == "Unknown"){"lightgrey"}
   else if(x == "3"){"lightblue"}
   else if(x == "NA"){"white"}
   else if(x == "Not applicable"){"white"}
-  else if(x == "depleted"){"sandybrown"}
-  else if (x == "decreasing"){"sandybrown"}
-  else if(x == "very low"){"sandybrown"}
+  else if(x == "Depleted"){"sandybrown"}
+  else if (x == "Decreasing"){"sandybrown"}
+  else if(x == "Very low"){"sandybrown"}
   else{""}}
 
 stylefunc <- function(value, index, name) {
@@ -110,7 +139,7 @@ coldefs <- list(
   reactable::colDef(style = stylefunc)
 )
 
-cols <- Elasmo_with_OSPAR %>% select("Dernier statut", 10:33) %>% colnames()
+cols <- Elasmo %>% select("Dernier statut", 11:35) %>% colnames()
 
 #replicate list to required length
 coldefs <- rep(coldefs,length(cols))
@@ -119,8 +148,8 @@ coldefs <- rep(coldefs,length(cols))
 names(coldefs) <- cols
 
 #reactable package
-Elasmo_IUCN_html <- reactable(Elasmo_with_OSPAR,
-                  pagination = F, #all on one page
+Elasmo_IUCN_html <- reactable(Elasmo,
+                  pagination = T, #all on one page
                   filterable = T,
                   showPageSizeOptions = T,
                   onClick = "select", #select the row when you click
@@ -132,58 +161,4 @@ Elasmo_IUCN_html <- reactable(Elasmo_with_OSPAR,
 
 
 save_reactable_test(Elasmo_IUCN_html, "html_output/Résultats_OE_statuts.html")
-```
-
-# Convention tables
-```{r convention}
-appendices_html <- reactable(Appendices, 
-                             pagination = F, 
-                             highlight = T, 
-                             striped = T,
-                             filterable = T)
-save_reactable_test(appendices_html, "html_output/Appendices_html_table.html")
-```
-
-# OSPAR table
-```{r ospar}
-#create colors
-status_color <- Status_OSPAR %>% 
-  mutate(status_colors = dplyr::case_when(
-  Last_status == 'Poor' ~ 'tomato',
-  Last_status == 'Good' ~ 'forestgreen',
-  Last_status == '?' ~ 'dodgerblue'
-  ))
-
-
-#reactable package
-OSPAR_html <- reactable(status_color,
-                        pagination = F,
-                        highlight = T,
-                        filterable = T,
-                        striped = T,
-                        defaultSorted = 'Last_status',
-                        columns = list(
-                          Last_status = colDef(
-                            style = color_scales(status_color, color_ref = 'status_colors')),
-                            status_colors = colDef(show = FALSE)
-                          ))
-save_reactable_test(OSPAR_html, "html_output/OSPAR_html_table.html")
-```
-
-# ICES advice
-```{r ICES}
-#bind stock_cats and stock_advice
-ICES_advice <- left_join(ICES_advice, ICES_stock_cat, by = "Stock")
-
-#pivot to wide format
-ICES_wide <- ICES_advice %>% filter(Year %in% "2018":"2023") %>% pivot_wider(names_from = Year, values_from = Advice) %>% relocate(Stock, stock_category)
-
-#reactable package
-ICES_html <- reactable(ICES_wide,
-                        pagination = F,
-                        highlight = T,
-                        striped = T,
-                       filterable = T)
-
-save_reactable_test(ICES_html, "html_output/ICES_html_table.html")
 ```
