@@ -96,6 +96,9 @@ Elasmo <- Elasmo %>%
          `Tendance du statut` = Status_evolution,
          `Années écoulées` = Years_apart,
          `Dernière évaluation` = Last_evaluation)
+
+#Export it as French final table
+write_xlsx(Elasmo, "data\\Elasmobranchs_final_table_FR.xlsx")
 ```
 
 

@@ -33,6 +33,10 @@ This one is ready for binding and it will be the model for the rest (for variabl
 #IUCN historical table
 Elasmobranchs_IUCN_historical_status <- read.csv("data\\Elasmobranchs_IUCN_historical_status.csv", encoding = "UTF-8", check.names = F) %>%
    mutate_all(as.character)
+
+#last little correction to old statuses
+Elasmobranchs_IUCN_historical_status[Elasmobranchs_IUCN_historical_status == "nt"] <- "NT"
+Elasmobranchs_IUCN_historical_status[Elasmobranchs_IUCN_historical_status == "LR/nt"] <- "NT"
 ```
 
 ## Conventions
@@ -102,6 +106,7 @@ FC1 <- FC1_OSPAR %>% filter(species %in% species_all) %>% filter(variable == "Lo
 ```{r}
 #stock categories
 ICES_stock_cat <- read_xlsx("data\\ICES_stock_cat.xlsx") %>% left_join(., names_elasmo[c("Species", "Name_FR", "Name_EN")]) %>% relocate(c("Name_FR", "Name_EN"), .after = Species)
+write_xlsx(ICES_stock_cat, "data\\ICES_stock_cat.xlsx")
 
 #Ices advice
 ICES_advice <- read_xlsx("data\\ICES_advice_history_updated.xlsx") #drop 1st id col
