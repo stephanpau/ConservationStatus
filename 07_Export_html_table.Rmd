@@ -12,6 +12,7 @@ This file exports the table formatted as html. This is an easy and visual way to
 ```{r setup, include = F}
 library(tidyverse)
 library(reactablefmtr)
+library(writexl)
 
 #colours
 library(IUCNpalette)
@@ -35,7 +36,7 @@ species_all <- c(species_names, species_genre)
 names_elasmo <- read_xlsx("data\\Elasmobranches_présents_FR.xlsx") %>% select(3:5)
 
 #final df
-Elasmo <- read_xlsx("data\\Elasmobranchs_final_table.xlsx")
+Elasmo <- read_xlsx("data\\Elasmobranchs_final_table.xlsx") %>% left_join(., elasmo_FR[c("Species", "Groupe")]) %>% relocate(Groupe, .before = Species)
 ```
 
 # Translate to French
@@ -85,6 +86,7 @@ Elasmo <- Elasmo %>%
     Region == "NE Atlantic (ICCAT)" ~ "Atlantique NE (CICTA)"
   )) %>%
   mutate(Level = ifelse(Level == "Regional", "Régional", Level)) %>% 
+  relocate(Last_status, .before = Status_evolution) %>% #change order
   
   #rename columns
   rename(Espèce = Species,

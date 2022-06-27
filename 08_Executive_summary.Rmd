@@ -408,10 +408,14 @@ heatmap_df <- Status_IUCN %>% filter(Region != "France") %>% left_join(.,elasmo_
   mutate_all(as.character) %>%
   rename(Status_FR = Cat_liste.rouge.France) %>%
   mutate(Region = as.character(Region)) %>% 
-  mutate(Status_FR = ifelse(is.na(Status_FR) == T, "Présence occasionnelle", Status_FR)) %>%
-  select(Species, Level, Region, Last_status, Status_FR) %>% na_if("NA") %>% drop_na(Last_status)
+  mutate(Status_FR = ifelse(is.na(Status_FR) == T, "Prés. occ.", Status_FR)) %>%
+  select(Species, Level, Region, Last_status, Status_FR) %>% na_if("NA") %>% drop_na(Last_status) %>%
+  filter(Last_status %in% status_IUCN)
+
 heatmap_df$Last_status <- factor(heatmap_df$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3"))
-heatmap_df$Status_FR <- factor(heatmap_df$Status_FR, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "Rare"))
+heatmap_df$Status_FR <- factor(heatmap_df$Status_FR, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "Prés. occ."))
+
+status_IUCN <- c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3")
 #need to rename to french for the plot
 #rename variables to have them in French for the table
 heatmap_df$Region[heatmap_df$Region == "Baltic Sea"] <- "Mer baltique"
@@ -451,7 +455,40 @@ ggplot(heatmap_df, aes(Region, Species)) +
   guides(fill=guide_legend(title="Dernier statut"))
 
 #export
-ggsave("figs\\heatmap_all2.png", width = 16, height  = 23, units = "cm")
+#ggsave("figs\\heatmap_all2.png", width = 16, height  = 23, units = "cm")
+
+#do the same but only for two species per class for the pptx presentation
+species_pptx <- c("Galeorhinus galeus", "Raja microocellata", 
+                  "Scyliorhinus canicula", "Dasyatis pastinaca", 
+                  "Prionace glauca",
+                  "Raja clavata", "Cetorhinus maximus", 
+                  "Squalus acanthias", "Mobula mobular",
+                  "Rostroraja alba", "Squatina squatina",
+                  "Rhinoptera marginata", "Isurus oxyrinchus",
+                  "Dipturus oxyrinchus")
+
+heatmap_pptx <- heatmap_df %>% filter(Species %in% species_pptx)
+
+IUCN_palette[8] <- "lightblue"
+
+#plot
+ggplot(heatmap_pptx, aes(Region, Species)) +
+  geom_tile(aes(fill = Last_status), colour = "white", lwd = .4) +
+  scale_fill_manual(values = IUCN_palette[1:9], na.translate = F) + 
+  theme_grey(base_size = 9)+
+  theme(axis.title.x = element_blank(),
+        axis.text.x= element_text(size = 8, angle = 90, vjust = 0.5),
+        axis.text.y = element_text(size = 7),
+        axis.title.y = element_blank(),
+        legend.position = "right",
+        legend.key.size =  unit(0.4, "cm"),
+        strip.text = element_text(size = 8)) + 
+  facet_grid(Status_FR ~ Level, scales = "free", space = "free") +
+  labs(y = "", title = "Derniers statuts UICN", subtitle = "Espèces classées par statut français (UICN 2013)") +
+  guides(fill=guide_legend(title="Dernier statut"))
+
+ggsave("figs\\Heatmap_IUCN_for_pptx.png", height = 12, width = 16, units = 'cm')
+
 ```
 
 ###4.2.3 Compter le nombre de statuts défavorables et le nombre de statuts favorables (med VS atl)
@@ -717,7 +754,12 @@ ggsave("figs\\heatmap_fc1.png", width = 10, height  = 10, units = "cm")
 ```{r}
 #format and bind FC1 and POSH
 POSH <- Status_OSPAR %>% select(Species, Region, Last_status) %>%
-  mutate(variable = "POSH")
+  mutate(variable = "POSH") %>% filter(Region %in% c("II", "III", "IV", "II*")) %>%
+  mutate(Region = case_when( #rename regions
+    Region == "II" | Region == "II*" ~ "GNS",
+    Region == "III" ~ "CS",
+    Region == "IV" ~ "BBIC"
+  ))
 
 FC1_t <- FC1 %>% rename(Species = species, Region = msfd.region, Last_status = bi.res) %>%
   select(Species, Region, Last_status, variable) %>%
@@ -786,15 +828,43 @@ heatmap_all_third <- ggplot(FC1_POSH_ICCAT_ICES, aes(Region, Species)) +
   #scale_y_discrete(sec.axis = sec_axis(~ ., name = "Statuts : France 2013", breaks = NULL, labels = NULL))  # NOT WORKING
   
 #export
-ggsave("figs\\Evaluations_hors_UICN_v2.png", width = 16, height = 14, units = 'cm')
-```
+#ggsave("figs\\Evaluations_hors_UICN_v2.png", width = 16, height = 14, units = 'cm')
 
-# 6. Présence dans les conventions
-```{r conventions}
-Appendices <- Appendices %>% select(-CITES_listing_year)
-#write_xlsx(Appendices, "data\\Appendices.xlsx")
-```
+#do one just for some species to show
+species_pptx <- c("Galeorhinus galeus", "Raja microocellata", 
+                  "Scyliorhinus canicula", "Dasyatis pastinaca", 
+                  "Prionace glauca",
+                  "Raja clavata", "Cetorhinus maximus", 
+                  "Squalus acanthias", "Mobula mobular",
+                  "Rostroraja alba", "Squatina squatina",
+                  "Rhinoptera marginata", "Isurus oxyrinchus",
+                  "Dipturus oxyrinchus")
 
+heatmap_pptx <- FC1_POSH_ICCAT_ICES %>% filter(Species %in% species_pptx)
+
+#heatmap
+palette_all <- cbind("red", "red", "olivedrab3", "red", "olivedrab3", "gold", "gray15")
+
+#heatmap
+heatmap_all_third <- ggplot(heatmap_pptx, aes(Region, Species)) +
+  geom_tile(aes(fill = Last_status), colour = "white", lwd = .4) +
+  scale_fill_manual(values = palette_all) +
+  theme_grey(base_size = 8) +
+  theme(axis.title.x = element_blank(),
+        axis.text.x= element_text(angle = 90, vjust = 0.5),
+        strip.text.x = element_text(size = 6),
+        legend.position = "right",
+        legend.key.size =  unit(0.2, "cm"),
+        plot.margin=unit(c(0.1,0.1,0.1,0.1), 'cm')) +
+  labs(y = "", legend = "Résultat", title = "Comparaison des évaluations tierces", subtitle = "OSPAR, CIEM, CICTA et CGPM") +
+  guides(fill=guide_legend(title="Résultat")) +
+  facet_grid(Status_FR ~ variable, scales = "free", space = "free", 
+             labeller = labeller(variable = label_wrap_gen(width=10))) #+
+  #scale_y_discrete(sec.axis = sec_axis(~ ., name = "Statuts : France 2013", breaks = NULL, labels = NULL))  # NOT WORKING
+  
+#export
+ggsave("figs\\Evaluations_hors_UICN_pptx.png", width = 14, height = 10, units = 'cm')
+```
 
 # Stats pour l'abstract
 ## Espèces par région marine

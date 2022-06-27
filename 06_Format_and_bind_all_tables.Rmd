@@ -72,9 +72,9 @@ Status_OSPAR <- read.csv("data\\Status_OSPAR.csv", check.names = F, sep = ";") #
 FC1_OSPAR <- readxl::read_xlsx("data\\FC1_integrated_outcomes.xlsx")
 
 #Add OSPAR status for french waters (II to IV)
-POSH <- Status_OSPAR %>% filter(Region %in% c("II", "III", "IV")) %>%
+POSH <- Status_OSPAR %>% filter(Region %in% c("II", "III", "IV", "II*")) %>%
   mutate(Region = case_when( #rename regions
-    Region == "II" ~ "OSPAR II - GNS (POSH)",
+    Region == "II" | Region == "II*" ~ "OSPAR II - GNS (POSH)",
     Region == "III" ~ "OSPAR III - CS (POSH)",
     Region == "IV" ~ "OSPAR IV - BBIC (POSH)"
   )) %>%
