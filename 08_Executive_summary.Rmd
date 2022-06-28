@@ -12,6 +12,7 @@ Purpose : produce figures and tables for a document summarizing the outcomes.
 library(tidyverse)
 library(readxl)
 library(writexl)
+library(vroom)
 
 #plotting
 library(ggsankey)
@@ -125,7 +126,7 @@ summary_fr$Statut <- factor(summary_fr$Statut, levels = c("NE", "DD","LC", "NT",
 ```{r  load_iucn, echo = FALSE}
 #transform
 Status_IUCN$Before_last_status[is.na(Status_IUCN$Before_last_status)] <- "NE"
-Status_IUCN$Last_status <- factor(Status_IUCN$Last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))
+Status_IUCN$Last_status <- factor(Status_IUCN$Last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3"))
 Status_IUCN$Before_last_status <- factor(Status_IUCN$Before_last_status ,levels = c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))
 
 #summary table
@@ -151,7 +152,7 @@ IUCN_summary_EU$Region <- factor(IUCN_summary_EU$Region ,levels = unique(IUCN_su
 status <- ggplot(data = IUCN_summary_EU, aes(x = Last_status, y= Nb.species, fill = as.factor(Groupe))) + 
     geom_bar(stat="identity") + 
     scale_fill_manual(values = palette[4:7]) +
-    labs(title = paste("Dernier statut IUCN par région et par groupe d'espèces"), y = "Nombre d'espèces", 
+    labs(title = paste("Dernier statut IUCN par Region et par groupe d'espèces"), y = "Nombre d'espèces", 
          fill = "Groupe", x = "", subtitle = "98 espèces présentes dans les eaux françaises") +
     theme_minimal() +
     theme(axis.title.x = element_blank(),
@@ -471,7 +472,9 @@ IUCN_summary <- Status_IUCN %>% #get the family from the elasmo_iucn df
 ### 4.2.2 Heatmap of all IUCN status by species and region
 ```{r heatmap_all}
 #heatmap
+status_IUCN <- c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3")
 heatmap_df <- Status_IUCN %>% filter(Region != "France") %>% left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France")]) %>% 
+  filter(Last_status %in% status_IUCN) %>%
   mutate_all(as.character) %>%
   rename(Status_FR = Cat_liste.rouge.France) %>%
   mutate(Region = as.character(Region)) %>% 
@@ -481,7 +484,7 @@ heatmap_df <- Status_IUCN %>% filter(Region != "France") %>% left_join(.,elasmo_
 heatmap_df$Last_status <- factor(heatmap_df$Last_status ,levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3"))
 heatmap_df$Status_FR <- factor(heatmap_df$Status_FR, levels = c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "Prés. occ."))
 
-status_IUCN <- c("NE", "DD","LC", "NT", "VU", "EN", "CR", "RE", "3")
+
 #need to rename to french for the plot
 #rename variables to have them in French for the table
 heatmap_df$Region[heatmap_df$Region == "Baltic Sea"] <- "Mer baltique"
@@ -499,10 +502,10 @@ heatmap_df$Region[heatmap_df$Region == "NE Atlantic"] <- "Atlantique NE"
 heatmap_df$Region[heatmap_df$Region == "World"] <- "Monde"
 heatmap_df$Level[heatmap_df$Level == "International"] <- "Int"
 heatmap_df$Level[heatmap_df$Level == "Continental"] <- "Cont"
-heatmap_df$Level[heatmap_df$Level == "Regional"] <- "Régional"
+heatmap_df$Level[heatmap_df$Level == "Regional"] <- "Regional"
 
 #order in geog decreasing
-heatmap_df$Level <- factor(heatmap_df$Level, levels = c("Int", "Cont", "Régional", "National"))
+heatmap_df$Level <- factor(heatmap_df$Level, levels = c("Int", "Cont", "Regional", "National"))
 
 #plot
 ggplot(heatmap_df, aes(Region, Species)) +
@@ -517,7 +520,7 @@ ggplot(heatmap_df, aes(Region, Species)) +
         legend.key.size =  unit(0.4, "cm"),
         strip.text = element_text(size = 8)) + 
   facet_grid(Status_FR ~ Level, scales = "free", space = "free") +
-  labs(y = "", title = "Derniers statuts UICN", subtitle = "Espèces classées par statut français (UICN 2013)") +
+  labs(y = "", title = "Derniers statuts UICN", subtitle = "Espèces classées par statut français (UICN & MNHN 2013)") +
   guides(fill=guide_legend(title="Dernier statut")) +
   scale_y_discrete(labels=c("Squatina squatina"=expression(bold("Squatina squatina")), 
                             "Rostroraja alba"=expression(bold("Rostroraja alba")), 
@@ -564,13 +567,13 @@ ggsave("figs\\Heatmap_IUCN_for_pptx.png", height = 12, width = 16, units = 'cm')
 ###4.2.3 Compter le nombre de statuts défavorables et le nombre de statuts favorables (med VS atl)
 ```{r}
 #Count number of status by species, façade
-Priority_IUCN <- Status_IUCN %>% filter(Région != "France") %>% 
+Priority_IUCN <- Status_IUCN %>% filter(Region != "France") %>% 
   left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France", "Groupe")]) %>% 
-  filter(Groupe != "Chimères") %>%
+  filter(! Family %in% c("Chimaeridae", "Rhinochimaeridae")) %>%
   rename(Status_FR = Cat_liste.rouge.France) %>%
   mutate_all(as.character) %>%
   mutate(Region = as.character(Region)) %>%
-  select(Status_FR, Groupe, Species, Nom.commun, Region, Last_status, Status_evolution) %>%
+  select(Status_FR, Groupe, Species, Name_FR, Region, Last_status, Status_evolution) %>%
   mutate(Façade = case_when(
     Region == "Italy" | Region == "Croatia" | Region == "Albania" | Region == "Mediterranean Sea" ~ "Méditerranée",
     Region == "NE Atlantic" | Region == "United Kingdom" |  Region == "Ireland" ~ "Atlantique NE",
@@ -578,13 +581,14 @@ Priority_IUCN <- Status_IUCN %>% filter(Région != "France") %>%
     Region == "Baltic Sea" | Region == "Sweden" ~ "Baltique"
     )) %>%
   drop_na(Façade) %>%
-  group_by(Façade, Groupe, Species, Nom.commun, Status_FR) %>%
+  group_by(Façade, Groupe, Species, Name_FR, Status_FR) %>%
   summarise(Nb.CR = sum(Last_status == "CR", na.rm = T),
             Nb.VU.EN = sum(Last_status == "EN" |
                                 Last_status == "VU" |
                                 Last_status == "3", na.rm = T),
             Nb.NT.LC = sum(Last_status == "NT" |
                              Last_status == "LC", na.rm = T),
+            Nb.DD = sum(Last_status == "DD", na.rm = T),
             Nb.baisse = sum(Status_evolution == "EN-CR" |
                             Status_evolution == "VU-CR" |
                             Status_evolution == "NT-CR" |
@@ -592,17 +596,39 @@ Priority_IUCN <- Status_IUCN %>% filter(Région != "France") %>%
                               Status_evolution == "NT-EN" |
                               Status_evolution == "LC-EN" |
                               Status_evolution == "NT-VU" | 
+                              Status_evolution == "LC-NT",
                               Status_evolution == "LC-VU",  na.rm = T),
             Nb.stable = sum(Status_evolution == "CR-CR" |
                               Status_evolution == "EN-EN" |
                               Status_evolution == "VU-VU" |
                               Status_evolution == "NT-NT" | 
-                            Status_evolution == "LC-LC", na.rm = T)) %>%
+                            Status_evolution == "LC-LC", na.rm = T),
+            Nb.hausse = sum(Status_evolution == "CR-EN" | 
+                              Status_evolution == "CR-VU" |
+                              Status_evolution == "CR-NT"|
+                              Status_evolution == "CR-LC" |
+                              Status_evolution == "EN-VU" |
+                              Status_evolution == "EN-NT" |
+                              Status_evolution == "EN-LC" |
+                              Status_evolution == "NT-LC", na.rm = T),
+            Tot = length(unique(Species)),
+            Tot.2.evals = length(unique(Species[is.na(Status_evolution) == FALSE]))) %>%
+  mutate(Perc.CR = round(Nb.CR/Tot*100,2),
+         Perc.EN.VU = round(Nb.VU.EN/Tot*100,2),
+         Perc.baisse = round(Nb.baisse/Tot.2.evals*100,2),
+         Perc.stable = round(Nb.stable/Tot.2.evals*100,2),
+         Perc.hausse = round(Nb.hausse/Tot.2.evals*100,2),
+         Perc.DD = round(Nb.DD/Tot*100,2)
+         ) %>%
   arrange(Façade, Groupe, desc(Nb.CR), desc(Nb.VU.EN), Species)
 
+#count nb of spp with at least 1 CR in one façade
+Priority_IUCN_count <- Priority_IUCN %>% filter(Nb.CR >= 1)
+table(Priority_IUCN_count$Façade, Priority_IUCN_count$Nb.CR, Priority_IUCN_count$Groupe)
+length(unique(Priority_IUCN_count$Species[Priority_IUCN_count$Groupe == "Raies"]))
+length(unique(Priority_IUCN_count$Species[Priority_IUCN_count$Groupe == "Requins"]))
 #export
-write_xlsx(Priority_IUCN, "data\\Priority_IUCN_v3.xlsx")
-
+write_xlsx(Priority_IUCN, "data\\Priority_IUCN.xlsx")
 
 #Same stats but by region
 nb.vu.en.nt <-  Status_IUCN %>% filter(Region != "France") %>% 
@@ -635,14 +661,13 @@ nb.vu.en.nt <-  Status_IUCN %>% filter(Region != "France") %>%
 #same stats but by species
 elasmo_FR <- elasmo_FR %>% rename(Espèce = Species)
 
-Priority_IUCN_large <- Status_IUCN %>% filter(Région != "France") %>% 
-  left_join(.,elasmo_FR[c("Espèce", "Cat_liste.rouge.France", "Groupe")]) %>% 
-  filter(Groupe != "Chimères") %>%
+Priority_IUCN_large <- Status_IUCN %>% filter(Region != "France") %>% 
+  left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France", "Groupe")]) %>%
+  filter(! Family %in% c("Chimaeridae", "Rhinochimaeridae")) %>%
   rename(Status_FR = Cat_liste.rouge.France) %>%
   mutate_all(as.character) %>%
-  rename(Last_status = "Dernier statut", Status_evolution = "Evolution du statut") %>%
-  select(Status_FR, Groupe, Espèce, "Nom commun", Région, Last_status, Status_evolution) %>%
-  group_by(Groupe, Région) %>%
+  select(Status_FR, Groupe, Species, Name_FR, Region, Last_status, Status_evolution) %>%
+  group_by(Groupe, Region) %>%
   summarise(Nb.CR = sum(Last_status == "CR", na.rm = T),
             Nb.VU.EN = sum(Last_status == "EN" |
                                 Last_status == "VU" |
@@ -672,8 +697,8 @@ Priority_IUCN_large <- Status_IUCN %>% filter(Région != "France") %>%
                               Status_evolution == "EN-NT" |
                               Status_evolution == "EN-LC" |
                               Status_evolution == "NT-LC", na.rm = T),
-            Tot = length(unique(Espèce)),
-            Tot.2.evals = length(unique(Espèce[is.na(Status_evolution) == FALSE]))) %>%
+            Tot = length(unique(Species)),
+            Tot.2.evals = length(unique(Species[is.na(Status_evolution) == FALSE]))) %>%
   mutate(Perc.CR = round(Nb.CR/Tot*100,2),
          Perc.EN.VU = round(Nb.VU.EN/Tot*100,2),
          Perc.baisse = round(Nb.baisse/Tot.2.evals*100,2),
@@ -681,7 +706,57 @@ Priority_IUCN_large <- Status_IUCN %>% filter(Région != "France") %>%
          Perc.hausse = round(Nb.hausse/Tot.2.evals*100,2),
          Perc.DD = round(Nb.DD/Tot*100,2)
          ) %>%
-  filter(Région %in% c("Méditerranée", "Atlantique NE", "Monde"))
+  filter(Region %in% c("Mediterranean Sea", "NE Atlantic", "World"))
+
+Priority_IUCN_large_all <- Status_IUCN %>% filter(Region != "France") %>% 
+  left_join(.,elasmo_FR[c("Species", "Cat_liste.rouge.France", "Groupe")]) %>% 
+  filter(! Family %in% c("Chimaeridae", "Rhinochimaeridae")) %>%
+  rename(Status_FR = Cat_liste.rouge.France) %>%
+  mutate_all(as.character) %>%
+  select(Status_FR, Groupe, Species, Name_FR, Region, Last_status, Status_evolution) %>%
+  group_by(Region) %>%
+  summarise(Nb.CR = sum(Last_status == "CR", na.rm = T),
+            Nb.VU.EN = sum(Last_status == "EN" |
+                                Last_status == "VU" |
+                                Last_status == "3", na.rm = T),
+            Nb.NT.LC = sum(Last_status == "NT" |
+                             Last_status == "LC", na.rm = T),
+            Nb.DD = sum(Last_status == "DD", na.rm = T),
+            Nb.baisse = sum(Status_evolution == "EN-CR" |
+                            Status_evolution == "VU-CR" |
+                            Status_evolution == "NT-CR" |
+                            Status_evolution == "VU-EN" |
+                              Status_evolution == "NT-EN" |
+                              Status_evolution == "LC-EN" |
+                              Status_evolution == "NT-VU" | 
+                              Status_evolution == "LC-NT",
+                              Status_evolution == "LC-VU",  na.rm = T),
+            Nb.stable = sum(Status_evolution == "CR-CR" |
+                              Status_evolution == "EN-EN" |
+                              Status_evolution == "VU-VU" |
+                              Status_evolution == "NT-NT" | 
+                            Status_evolution == "LC-LC", na.rm = T),
+            Nb.hausse = sum(Status_evolution == "CR-EN" | 
+                              Status_evolution == "CR-VU" |
+                              Status_evolution == "CR-NT"|
+                              Status_evolution == "CR-LC" |
+                              Status_evolution == "EN-VU" |
+                              Status_evolution == "EN-NT" |
+                              Status_evolution == "EN-LC" |
+                              Status_evolution == "NT-LC", na.rm = T),
+            Tot = length(unique(Species)),
+            Tot.2.evals = length(unique(Species[is.na(Status_evolution) == FALSE]))) %>%
+  mutate(Perc.CR = round(Nb.CR/Tot*100,2),
+         Perc.EN.VU = round(Nb.VU.EN/Tot*100,2),
+         Perc.baisse = round(Nb.baisse/Tot.2.evals*100,2),
+         Perc.stable = round(Nb.stable/Tot.2.evals*100,2),
+         Perc.hausse = round(Nb.hausse/Tot.2.evals*100,2),
+         Perc.DD = round(Nb.DD/Tot*100,2)
+         ) %>%
+  filter(Region %in% c("Mediterranean Sea", "NE Atlantic", "World"))
+
+#export
+vroom_write(Priority_IUCN_large_all, "data\\Priority_world_med_nea_all.xlsx")
 ```
 
 ## 4.3 Zoom on species evaluated DD by France in 2013
@@ -708,7 +783,7 @@ for(i in 1:length(levels_iucn)){
   pivot_wider(names_from = Var2, values_from = Freq) %>% 
   mutate(Total = select(., "NA":"RE") %>% rowSums(na.rm = TRUE)) %>% 
   rename(Region = Var1) %>% mutate(Status_FR = status) %>%
-  mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea", "NE Atlantic"), "Régional", "National")) %>%
+  mutate(Level = ifelse(Region == c("Baltic Sea", "Mediterranean Sea", "NE Atlantic"), "Regional", "National")) %>%
   mutate(Level = ifelse(Region == "World", "Mondial", Level)) %>% 
   mutate(Level = ifelse(Region == "Europe", "Continental", Level))
     
@@ -719,7 +794,7 @@ for(i in 1:length(levels_iucn)){
 #add level
 freq <- freq %>% mutate(Region = as.character(Region)) %>%
   relocate(c(Status_FR, Level), .before = Region) %>%
-  arrange(factor(Status_FR, levels = c(c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))), factor(Level, levels = c("National", "Régional", "Continental", "Mondial")), Region)
+  arrange(factor(Status_FR, levels = c(c("NA", "NE", "DD","LC", "NT", "VU", "EN", "CR", "RE"))), factor(Level, levels = c("National", "Regional", "Continental", "Mondial")), Region)
 
 #rename variables to have them in French for the table
 freq$Region[freq$Region == "Baltic Sea"] <- "Mer baltique"
@@ -940,7 +1015,7 @@ ggsave("figs\\Evaluations_hors_UICN_pptx.png", width = 14, height = 10, units = 
 
 
 # 6. Stats pour l'abstract
-## 6.1. Espèces par région marine
+## 6.1. Espèces par Region marine
 ```{r}
 #atlantic
 spp_atl <- Walls_Dulvy %>% filter(Region == "NEA") %>% 
